@@ -131,7 +131,7 @@ The checker is scored on 264 invented sentences. The sentences were written by t
 
 Trust the held-out row. In plain terms: about 1 in 16 flags is a false alarm, and about 1 in 4 problem sentences is missed. The misses are mostly paraphrases the rules cannot see (for example "mostly retired crowd", "born in this country"), and a few plain gaps such as "all white street" and "we do not take Section 8". Those are listed in BENCHMARK.md and are the next rules to add, to be checked against a fresh held-out set.
 
-Pages are measured with Lighthouse, see [docs/LIGHTHOUSE.md](docs/LIGHTHOUSE.md).
+Lighthouse on the live demo (mobile and desktop, one run each, 2026-11-23): 100 for performance, accessibility, best practices and SEO on both listing pages and the checker. Mobile LCP is 0.8 to 1.1 seconds. Details, caveats and what the first run found are in [docs/LIGHTHOUSE.md](docs/LIGHTHOUSE.md).
 
 ## The YAML file
 

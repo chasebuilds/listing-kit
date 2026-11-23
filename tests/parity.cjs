@@ -10,7 +10,7 @@ process.stdin.on('end', () => {
   const req = JSON.parse(input);
   let out;
   if (req.op === 'check') {
-    out = req.texts.map((t) => fh.check(t, req.rules).map((f) => [f.rule_id, f.start, f.end, f.severity]));
+    out = req.texts.map((t) => fh.check(t, req.rules, req.packs).map((f) => [f.rule_id, f.start, f.end, f.severity]));
   } else {
     out = req.cases.map((c) => mortgage.monthlyPayment(c));
   }

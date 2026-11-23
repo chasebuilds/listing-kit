@@ -59,10 +59,10 @@ open_houses:
     end: "2026-12-05 13:00"
     note: Enter through the front door. Shoe covers are at the entry.
 agent:
-  name: Morgan Placeholder
-  brokerage: Example and Co. Realty
-  phone: "(555) 010-0178"
-  email: morgan@example.com
+  name: Riley Example
+  brokerage: Sample Realty Group
+  phone: "(555) 010-0142"
+  email: riley@example.com
   tagline: An invented agent for the listing-kit demo.
   brand_color: "#1f3a6b"
 location:

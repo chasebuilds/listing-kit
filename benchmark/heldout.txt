@@ -1,139 +1,151 @@
-# Held-out set. Invented sentences, written after the rules were frozen and never used to tune them.
+# Held-out set (version 1.1.0). Invented sentences, written after the rules were frozen and never used to tune them.
+# The version 1.0.0 held-out set was folded into dev.txt once its misses were used to write new rules.
 # Format: label|group|difficulty|text   (label F = should be flagged, C = should not; difficulty std or hard)
-F|familial_status|std|We are looking for a quiet couple, no children or roommates.
-F|familial_status|std|This sunny two bedroom is just right for newlyweds.
-F|familial_status|std|Great home for a young family that wants a short walk to the playground.
-F|familial_status|std|Adult living at its best, no one under 18 in this community.
-F|familial_status|std|Not a good fit for toddlers, the stairs are steep and open.
-F|familial_status|std|Singles and couples will feel at home in the lofts.
-F|familial_status|std|The perfect starter home for a busy family of four.
-F|familial_status|std|Active adult community near three golf courses.
-F|familial_status|std|Mature adults preferred in this peaceful building.
-F|familial_status|std|Lots of children live on this street, so your kids will have friends right away.
-F|familial_status|std|A senior living complex with an on-site nurse.
-F|familial_status|hard|Peaceful complex with a mostly retired crowd.
-F|familial_status|hard|Landlord prefers tenants without little ones.
-F|familial_status|hard|Two bedrooms, a good match for a pair of professionals who like it calm.
-F|disability|std|We cannot accommodate the handicapped, there are no elevators.
-F|disability|std|Seeking physically fit tenants for this third floor walk up.
-F|disability|std|No emotional support animals, no exceptions.
-F|disability|std|Must be able to live independently and take care of the yard.
-F|disability|std|Not accessible to the blind or hard of hearing.
-F|disability|std|Great for wheelchair users thanks to the grab bars everywhere.
-F|disability|hard|Tenants must be mentally sound and sober.
-F|disability|hard|For people who can handle a long gravel driveway on their own two feet.
-F|religion|std|Short drive to several churches and a parochial school.
-F|religion|std|Beautiful Muslim neighborhood with a mosque on the corner.
-F|religion|std|Jewish families will love the synagogue just a block away.
-F|religion|std|We want a Christian tenant who shares our values.
-F|religion|std|Quiet, church-going neighbors on both sides.
-F|religion|std|Near the cathedral and within a few steps of the parish hall.
-F|religion|std|Catholic home with a statue in the garden, owner prefers Catholic buyers.
-F|religion|hard|A holy and righteous street where everyone knows their neighbors.
-F|race_color|std|Asian community nearby with great restaurants and markets.
-F|race_color|std|No Hispanics in this building, sorry.
-F|race_color|std|This is a Black neighborhood that is slowly changing.
-F|race_color|std|White families only, please.
-F|race_color|std|Located in a ghetto area but the house is solid.
-F|race_color|std|An all white street with great curb appeal.
-F|race_color|hard|Neighborhood is turning, so the price is low.
-F|national_origin|std|Applicants must be American citizens.
-F|national_origin|std|No immigrants or illegals will be considered.
-F|national_origin|std|English only in the common areas and on the lease.
-F|national_origin|std|We rent to Irish families only.
-F|national_origin|std|Close to the Polish community and its bakeries.
-F|national_origin|hard|Tenants should have been born in this country.
-F|sex|std|Gentleman tenant wanted for a room in my home.
-F|sex|std|Girls only in this sorority-style house.
-F|sex|std|Your husband will love the garage and the workshop.
-F|sex|std|Perfect for a stay-at-home mom with a big kitchen to cook in.
-F|sex|std|A true man cave downstairs with a bar and a dartboard.
-F|sex|std|No transgender tenants.
-F|sex|std|Homosexuals need not apply.
-F|sex|hard|Every woman dreams of a walk-in closet like this one.
-F|sex|hard|A masculine retreat with a leather and cigar vibe.
-F|steering|std|Exclusive enclave for discerning buyers.
-F|steering|std|Highly rated schools bring families to this area.
-F|steering|std|Prestigious neighbors include doctors and lawyers.
-F|steering|std|A rough part of town, but the price reflects it.
-F|steering|std|Our tenants are respectable people and we want to keep it that way.
-F|steering|std|Upper class neighborhood with estate sized lots.
-F|steering|std|Sought after school district and a traditional community.
-F|steering|std|Diverse neighborhood with a mix of cultures.
-F|steering|hard|Prime location, the kind of area where you will fit in.
-F|steering|hard|Not far from the bad side of town.
-F|local_law|std|Sorry, no vouchers or public assistance.
-F|local_law|std|We do not take Section 8 in this unit.
-F|local_law|hard|Must earn income from a job, no benefits or subsidies.
-C|plain|std|The bright kitchen opens to a deck with a gas grill hookup.
-C|plain|std|Four bedrooms upstairs and a bonus room over the garage.
-C|plain|std|Close to the freeway with an easy commute to the medical district.
-C|plain|std|Lawn care and snow removal are included.
-C|plain|std|A new water heater was installed in 2025.
-C|plain|std|Quartz counters, soft-close cabinets and a farmhouse sink.
-C|plain|std|Located on a cul-de-sac with a large flat yard.
-C|plain|std|Showings by appointment only, call the listing office.
-C|plain|std|The lot backs onto a wooded greenbelt.
-C|plain|std|Central air, ceiling fans and replacement windows throughout.
-C|plain|std|Walk to the grocery store, a bakery and the community pool.
-C|plain|std|Two minutes from Maple Elementary and the public library.
-C|plain|std|Monthly rent is $1,850 and includes parking.
-C|plain|std|Tile entry, crown molding and a coffered ceiling in the dining room.
-C|plain|std|The home has a radon system and a sump pump.
-C|plain|std|The roof is 8 years old and the siding is vinyl.
-C|plain|std|Fiber internet is available at this address.
-C|plain|std|The second bedroom is currently used as an office.
-C|plain|std|Tenant pays electric and gas.
-C|plain|std|Lake access is a five minute walk down a shared path.
-C|plain|std|Remodeled in 2022 with new wiring and plumbing.
-C|plain|std|The loft has exposed brick and 14 foot ceilings.
-C|plain|std|Parking for three cars in the driveway.
-C|plain|std|A deep soaking tub anchors the upstairs bath.
-C|plain|std|Pets are welcome with a deposit, and assistance animals are always welcome.
-C|plain|std|The pool is heated and open from May to October.
-C|plain|std|Plenty of storage in the attic and crawl space.
-C|plain|std|On a quiet street, a few blocks from the elementary school.
-C|plain|std|Lease terms are 12 months, with a security deposit of one month.
-C|plain|std|Large screened porch overlooking the creek.
-C|tricky|std|The finished family room walks out to the patio.
-C|tricky|std|A spacious single family residence with a basement.
-C|tricky|std|The master suite is on the main floor with a sitting area.
-C|tricky|std|Master bedroom closet has built-in drawers and a shoe wall.
-C|tricky|std|All main-floor doorways are 36 inches wide and the shower is roll-in.
-C|tricky|std|Ramp at the front door and an elevator to all floors.
-C|tricky|std|Ranch style, no steps from the garage to the kitchen.
-C|tricky|std|No smoking inside, no fireworks on the property.
-C|tricky|std|The old Church Road bridge is a short walk away.
-C|tricky|std|Near Temple Avenue shopping and the post office.
-C|tricky|std|This is an exclusive right to sell listing.
-C|tricky|std|Mature landscaping with a crepe myrtle and boxwoods.
-C|tricky|std|Black walnut cabinets and a white quartz island.
-C|tricky|std|German-made windows and a Spanish tile roof.
-C|tricky|std|A multi-family property with a unit on each floor.
-C|tricky|std|A two-family house with separate meters.
-C|tricky|std|Located off Indian Trail Road with easy highway access.
-C|tricky|std|A family-run contractor did the addition.
-C|tricky|std|An accessory dwelling unit sits behind the main house.
-C|tricky|std|Every bedroom has its own walk-in closet.
-C|tricky|std|Mom and pop businesses fill the downtown blocks.
-C|tricky|std|No stairs, no yard work, no problem.
-C|tricky|std|Sellers are open to concessions at closing.
-C|tricky|std|The seller was a retired schoolteacher who kept great records.
-C|tricky|std|Mother-in-law suite with a kitchenette and private bath.
-C|tricky|std|Nearby churches, schools and shops are shown on the neighborhood map in the packet.
-C|tricky|std|Great for a home gym or a craft studio.
-C|tricky|std|Perfect for entertaining with an open great room.
-C|tricky|std|Ideal for work from home with a dedicated office and fast internet.
-C|tricky|std|Perfect for a hot summer day with the pool and shaded patio.
-C|tricky|std|Handicap accessible parking is available near the entrance.
-C|tricky|std|Within walking distance of the park and the river trail.
-C|tricky|std|A young, energetic landscape with new plantings.
-C|tricky|std|The older home has charm and original millwork.
-C|tricky|std|Safe room in the basement doubles as a storm shelter.
-C|tricky|std|The neighborhood has a community garden and a farmers market.
-C|tricky|hard|Her grandmother built the home in 1930 and the family kept it for four generations.
-C|tricky|hard|The developer, a Mr. Daniels, finished the subdivision in 1998.
-C|tricky|hard|A mature couple of cedar trees frames the entrance.
-C|tricky|hard|Kosher kitchen with separate dairy and meat sinks.
-C|tricky|hard|Located near the Greek Orthodox Church Road exit.
-C|tricky|hard|The home inspector noted that the husband-built deck is in good shape.
+F|familial_status|std|Quiet two bedroom for a single professional or a couple, no families.
+F|familial_status|std|Our building is adults only, so the pool stays peaceful.
+F|familial_status|std|Not recommended for families with young children because of the balcony.
+F|familial_status|std|Great spot for a family with school-age kids and a dog.
+F|familial_status|std|This one suits a young couple just beginning life together.
+F|familial_status|std|Bring the kids, there are five playgrounds within a mile.
+F|familial_status|std|Seniors will enjoy the single-level layout and the nearby clinic.
+F|familial_status|std|Ideal for a bachelor or a pair of roommates in their twenties.
+F|familial_status|std|Perfect for a newly married couple who wants a cozy nest.
+F|familial_status|std|A 62 and over community with a clubhouse.
+F|familial_status|std|Children are not allowed past 9 pm and families are discouraged.
+F|familial_status|std|Great neighborhood for raising children.
+F|familial_status|hard|Tenants must be a couple, one person alone will not be considered.
+F|familial_status|hard|The seller wants a household without small ones underfoot.
+F|familial_status|hard|The kind of home where grandparents and grandkids gather every Sunday.
+F|disability|std|Tenants must be physically able to carry groceries up four flights.
+F|disability|std|We are unable to rent to people in wheelchairs.
+F|disability|std|No emotional support dogs or other assistance animals.
+F|disability|std|Best for able-bodied hikers who do not mind the climb.
+F|disability|std|Looking for mentally healthy tenants who can manage on their own.
+F|disability|std|Not for the elderly, there is no elevator and the stairs are steep.
+F|disability|hard|Residents should be sharp and fully independent.
+F|religion|std|Catholic neighbors surround this property and the parish is a block away.
+F|religion|std|A Muslim family would feel welcome here.
+F|religion|std|We prefer a Jewish tenant for the upstairs unit.
+F|religion|std|Just around the corner from three churches.
+F|religion|std|Mormon community with a temple five minutes away.
+F|religion|std|No atheists, please.
+F|religion|std|A true Christian neighborhood where everyone attends church.
+F|religion|hard|Quiet, prayerful street where folks keep the faith.
+F|race_color|std|A neighborhood of mostly Latino families with a nice plaza.
+F|race_color|std|Whites only, please inquire inside.
+F|race_color|std|We will not rent to Black applicants.
+F|race_color|std|Great for Asian buyers who want to be near the temple and markets.
+F|race_color|std|All black neighborhood with affordable homes.
+F|race_color|std|An integrated block with a history of civic pride.
+F|race_color|hard|The neighborhood used to be nice before they moved in.
+F|race_color|hard|Come see the part of town where your own people live.
+F|national_origin|std|Applicants should speak fluent English and be born here.
+F|national_origin|std|No Mexicans or other foreigners.
+F|national_origin|std|Close to the Vietnamese community and its grocery stores.
+F|national_origin|std|Only US citizens may apply for this unit.
+F|national_origin|std|Immigrants and refugees will not be considered.
+F|national_origin|hard|Tenants must have lived in this country for at least ten generations.
+F|sex|std|Women only, for a shared house near campus.
+F|sex|std|Male tenant preferred for the basement room.
+F|sex|std|A girl cave with a vanity wall and a wine fridge.
+F|sex|std|The husband will love the three car garage.
+F|sex|std|Lesbians and gays are not welcome here.
+F|sex|std|A true bachelor pad with a bar and a pool table.
+F|sex|std|Mom will adore the big pantry and the island.
+F|sex|hard|Built for a man who likes his tools and his truck.
+F|sex|hard|A home with a gentle feminine energy.
+F|steering|std|Highly desirable neighbors and a very exclusive address.
+F|steering|std|An area with excellent schools and the right class of people.
+F|steering|std|Wealthy residents keep the street immaculate.
+F|steering|std|Crime-ridden area, so the price is a bargain.
+F|steering|std|A restricted subdivision for select buyers only.
+F|steering|std|Traditional values and good people live on this street.
+F|steering|std|Close to top-rated elementary and middle schools.
+F|steering|std|A mixed neighborhood in transition.
+F|steering|hard|A fine street for people who share your background.
+F|steering|hard|You will not find any riffraff around here.
+C|plain|std|The kitchen has soft-close drawers and a pull-out trash drawer.
+C|plain|std|Three bedrooms on the second floor and a laundry room next to them.
+C|plain|std|New carpet and fresh paint throughout the unit.
+C|plain|std|The fenced lot is 0.4 acre and has a shed.
+C|plain|std|The condo fee covers water, trash and exterior upkeep.
+C|plain|std|A sunny breakfast nook looks out over the garden.
+C|plain|std|The home sits above the flood line and has never taken water.
+C|plain|std|Original 1920s doors and trim, refinished by the current owner.
+C|plain|std|The attic has been insulated with blown cellulose.
+C|plain|std|Showings are Saturday and Sunday between 10 and 4.
+C|plain|std|Gas stove, dishwasher and a new refrigerator are included.
+C|plain|std|The street ends at the greenway trailhead.
+C|plain|std|Zoned R-2, which allows a duplex.
+C|plain|std|Eight minutes to the hospital and 20 to the airport.
+C|plain|std|A bonus room above the garage could be a studio or a fourth bedroom.
+C|plain|std|The pool was resurfaced in 2024.
+C|plain|std|Taxes were $3,912 last year.
+C|plain|std|Backs to open space with trails and a creek.
+C|plain|std|Cedar closet in the hall and a linen closet in the bath.
+C|plain|std|Easy highway access in two directions.
+C|plain|std|The community center and the playground are one block away.
+C|plain|std|Pets considered with a deposit, and assistance animals are always welcome.
+C|plain|std|Window screens and storm windows were replaced in 2023.
+C|plain|std|Two covered parking spaces and a storage cage come with the unit.
+C|plain|std|An easy walk to the farmers market, library and two bus lines.
+C|plain|std|Radiant floors heat the bath and the entry.
+C|plain|std|The lot slopes gently to the south and gets full sun.
+C|plain|std|The 2022 remodel added a mudroom and a half bath.
+C|plain|std|Ask the district office for the assigned school and the current boundaries.
+C|plain|std|Updated electrical panel with 200 amp service.
+C|plain|std|Spacious, light-filled rooms and generous closets.
+C|plain|std|A short drive to the lake and the state park.
+C|plain|std|Lease starts December 1 and rent is due on the first.
+C|plain|std|The shop has 220 volt power and a roll-up door.
+C|plain|std|Open floor plan with a gas fireplace and built-in bookcases.
+C|plain|std|Two blocks from the light rail station.
+C|tricky|std|The finished family room has a wet bar and walks out to the yard.
+C|tricky|std|A single-family home with a detached garage.
+C|tricky|std|A multi-family house with a separate entrance upstairs.
+C|tricky|std|The master suite includes a sitting room and a walk-in closet.
+C|tricky|std|The master bathroom has a deep tub and a rain shower.
+C|tricky|std|Wheelchair ramp at the side door and a low-threshold shower.
+C|tricky|std|All living space is on one level with no steps inside.
+C|tricky|std|Non-smoking building, no grilling on balconies.
+C|tricky|std|On Temple Road next to the old rail depot.
+C|tricky|std|Near Church Avenue and the town green.
+C|tricky|std|An exclusive agency listing, call the office to schedule.
+C|tricky|std|Mature maples line the street and shade the sidewalk.
+C|tricky|std|Black cabinets, white countertops and a gray tile backsplash.
+C|tricky|std|Italian fixtures in the bath and a Spanish-style tile roof.
+C|tricky|std|A two-family house with separate utilities.
+C|tricky|std|An in-law suite with its own entrance and a kitchenette.
+C|tricky|std|A bachelor apartment with a murphy bed and a full kitchen.
+C|tricky|std|Mom and pop restaurants are within walking distance.
+C|tricky|std|Close to Indian Creek and the nature center.
+C|tricky|std|The family-owned hardware store is next door.
+C|tricky|std|Her late father built the deck, and it is in great shape.
+C|tricky|std|A husband and wife team of contractors did the remodel.
+C|tricky|std|Moms Club of the neighborhood organizes a yearly yard sale.
+C|tricky|std|The seller is a retired nurse who kept every receipt.
+C|tricky|std|The yard has a mature young apple tree and a fig.
+C|tricky|std|A chapel on the corner is now a yoga studio.
+C|tricky|std|Great for entertaining with a long deck and a built-in grill.
+C|tricky|std|Perfect for a quiet morning with coffee on the porch.
+C|tricky|std|Ideal for a workshop, a studio or a home gym.
+C|tricky|std|Great for kayaking with a launch at the end of the street.
+C|tricky|std|Handicap parking and a no-step entrance at the front.
+C|tricky|std|A kosher kitchen with two dishwashers and two ovens.
+C|tricky|std|Sober living rules apply: no alcohol on the property.
+C|tricky|std|Fourth-floor walk-up with high ceilings and big windows.
+C|tricky|std|Plenty of room for a long dining table and a crowd.
+C|tricky|std|Seller will provide a home warranty.
+C|tricky|std|The Moms Demand Action billboard on the corner is gone.
+C|tricky|std|Jogging trails, a pool and a fitness room are on site.
+C|tricky|std|Her Majesty Street Cafe is two doors down.
+C|tricky|hard|A wife and husband built the barn in 1962 and left it to their children.
+C|tricky|hard|The homeowners are both retired and have kept the place immaculate.
+C|tricky|hard|A restricted covenant on the title limits the height of fences to six feet.
+C|tricky|hard|The old Christian Church Road Bridge was restored in 2019.
+C|tricky|hard|The sellers are a husband and wife who are moving closer to family.
+F|local_law|std|We do not take housing vouchers in this building.
+F|local_law|std|No Section 8 or subsidized applicants.
+F|local_law|hard|Tenants must hold a job, we do not consider other money.
+C|local_plain|std|All income sources that are lawful are considered.
+C|local_plain|std|The lease requires renters insurance and a security deposit.

@@ -63,7 +63,26 @@ const check = (ok, name) => { console.log(`${ok ? 'ok  ' : 'FAIL'} ${name}`); if
   await page.waitForTimeout(400);
   check((await page.locator('mark.avoid').count()) === 1, 'checker marks "no kids" as avoid');
 
+  await page.fill('#text', 'No Section 8.');
+  await page.waitForTimeout(400);
+  check((await page.locator('#findings li').count()) === 0, 'local-law pack is off by default');
+  await page.check('#local-pack');
+  await page.waitForTimeout(400);
+  check((await page.locator('#findings li').count()) === 1, 'local-law pack runs when the box is ticked');
+
+  await page.goto(url('index.html'));
+  const total = await page.locator('#cards article').count();
+  check(total === 3, `index lists 3 listings (${total})`);
+  await page.click('#filters button[data-status="Pending"]');
+  const shown = await page.locator('#cards article:visible').count();
+  check(shown === 1, `Pending filter shows 1 card (${shown})`);
+  await page.click('#filters button[data-status=""]');
+  check((await page.locator('#cards article:visible').count()) === 3, 'All filter shows every card');
+
   await page.setViewportSize({ width: 360, height: 800 });
+  await page.goto(url('index.html'));
+  const o2 = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+  check(o2 <= 0, `index has no horizontal scroll at 360px wide (overflow ${o2})`);
   await page.goto(url('alder-street/index.html'));
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   check(overflow <= 0, `no horizontal scroll at 360px wide (overflow ${overflow})`);

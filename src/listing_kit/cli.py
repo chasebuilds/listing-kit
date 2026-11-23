@@ -9,15 +9,16 @@ from importlib import resources
 from pathlib import Path
 
 from . import __version__, fairhousing
-from .build import build_checker_page, build_site, copy_assets
-from .config import ListingError, load_listing
+from .build import SORTS, build_checker_page, build_site, copy_assets
+from .config import ListingError, load_index_config, load_listing
 
 
 def _cmd_build(args: argparse.Namespace) -> int:
     try:
         results = build_site(
             [Path(p) for p in args.files], Path(args.out), checker=args.checker,
-            index_title=args.index_title,
+            index_title=args.index_title, sort=args.sort,
+            index_config=load_index_config(args.index_config) if args.index_config else None,
         )
     except ListingError as exc:
         print("The listing file has problems:", file=sys.stderr)
@@ -26,6 +27,13 @@ def _cmd_build(args: argparse.Namespace) -> int:
         return 2
     for r in results:
         print(f"built {r.slug} -> {r.out_dir / 'index.html'}")
+        st = r.photo_stats
+        if st:
+            print(
+                f"  photos: {st['photos']} files, {st['original_bytes'] // 1024} KB original; "
+                f"{st['output_bytes'] // 1024} KB written in 2 to 3 WebP sizes each; "
+                f"the 640 px copies alone total {st['phone_bytes'] // 1024} KB"
+            )
         for f in r.warnings:
             print(
                 f"  wording [{f.severity}] '{f.match}' ({f.rule_id}): {f.reason} Try: {f.suggest}"
@@ -57,7 +65,8 @@ def _cmd_check(args: argparse.Namespace) -> int:
     else:
         text = sys.stdin.read()
     rules = fairhousing.load_rules(args.rules)
-    findings = fairhousing.check(text, rules)
+    packs = ("core", *args.pack)
+    findings = fairhousing.check(text, rules, packs)
     if args.json:
         print(json.dumps([f.to_dict() for f in findings], indent=2))
     else:
@@ -102,7 +111,9 @@ def main(argv: list[str] | None = None) -> int:
     b.add_argument("files", nargs="+")
     b.add_argument("-o", "--out", required=True)
     b.add_argument("--checker", action="store_true", help="also write the in-page checker")
-    b.add_argument("--index-title", default="Sample listings")
+    b.add_argument("--index-title", default="My listings", help="title of the index page for several listings")
+    b.add_argument("--index-config", help="YAML with title, intro and agent block for the index page")
+    b.add_argument("--sort", choices=SORTS, default="file", help="order of cards on the index page")
     b.set_defaults(func=_cmd_build)
 
     v = sub.add_parser("validate", help="check listing files against the schema")
@@ -113,6 +124,10 @@ def main(argv: list[str] | None = None) -> int:
     c.add_argument("text", nargs="*")
     c.add_argument("--file")
     c.add_argument("--rules", help="use your own rules YAML")
+    c.add_argument(
+        "--pack", action="append", default=[], choices=["local"],
+        help="also run an opt-in rule pack: local = state/local law items (not federal)",
+    )
     c.add_argument("--json", action="store_true")
     c.add_argument("--no-fail", action="store_true", help="exit 0 even when flags are found")
     c.set_defaults(func=_cmd_check)

@@ -15,11 +15,13 @@
     return out;
   }
 
-  function check(text, data) {
+  function check(text, data, packs) {
+    packs = packs || ['core'];
     var folded = normalize(text);
     var win = data.window;
     var found = [];
     data.rules.forEach(function (rule) {
+      if (packs.indexOf(rule.pack || 'core') === -1) return;
       var re = new RegExp(rule.pattern, 'gi');
       var unless = (rule.unless || []).map(function (u) { return new RegExp(u, 'i'); });
       var m;

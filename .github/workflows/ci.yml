@@ -41,7 +41,7 @@ jobs:
         with:
           node-version: 24
       - run: pip install -e .
-      - run: listing-kit build examples/maple-court.yml examples/alder-street.yml -o site --checker
+      - run: listing-kit build examples/maple-court.yml examples/alder-street.yml examples/harbor-lane.yml -o site --checker --index-config examples/index.yml
       - run: npm install --no-save playwright@1.65.1
       - run: npx playwright install --with-deps chromium
       - run: node tests/browser_smoke.cjs site

@@ -4,9 +4,9 @@
 
 - **Not legal advice.** It is a writing aid. A person who knows your state and city law has to make the call on anything that matters.
 - **It matches words, not meaning.** It cannot see paraphrases ("a mostly retired crowd", "born in this country") and it flags look-alikes ("a short walk to the temple of the old mill", "husband-and-wife team"). The measured misses and false alarms are in BENCHMARK.md.
-- **Recall is about 72% on the held-out set.** About 1 in 4 problem sentences in that test was missed. Do not treat a clean result as approval.
+- **Recall is about 64% on the newest held-out set (143 sentences).** About 1 in 3 problem sentences in that test was missed. Do not treat a clean result as approval.
 - **The test sentences are invented** by the author of the rules. Real listings are messier.
-- **US federal protected classes only,** plus a few local-law items (source of income, sexual orientation and gender identity wording). It does not know your state's or city's extra protected classes, and it does not check photos, symbols or human models in photos.
+- **US federal protected classes only by default.** An opt-in pack (`--pack local`) adds two state and local law rules about source of income; it does not cover your state's full list. It does not know your state's or city's extra protected classes, and it does not check photos, symbols or human models in photos.
 - **English only.** Matching is ASCII-oriented; accented text is passed through unchanged.
 - **Some rules go further than HUD's published examples.** Those are marked `basis: judgment` in the rules file.
 - **Housing for older persons.** A 55+ community can be lawful when it meets the exemption. The checker cannot tell whether it does, so it flags for review.

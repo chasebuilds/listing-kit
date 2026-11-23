@@ -59,6 +59,11 @@ EXAMPLES = {
     "in-law-suite": "A mother-in-law suite.",
     "maids-quarters": "Maid's quarters off the kitchen.",
     "source-of-income": "No Section 8.",
+    "income-source-job": "Income must come from a job.",
+    "all-race-area": "An all white street.",
+    "who-will-love": "Singles and couples will feel at home.",
+    "active-people": "Ideal for active people.",
+    "fit-in": "The kind of area where you will fit in.",
 }
 
 
@@ -78,7 +83,7 @@ def test_every_rule_has_an_example_and_the_example_triggers_it():
     rules = fairhousing.load_rules()
     assert {r["id"] for r in rules} == set(EXAMPLES)
     for rule_id, sentence in EXAMPLES.items():
-        hit = {f.rule_id for f in fairhousing.check(sentence)}
+        hit = {f.rule_id for f in fairhousing.check(sentence, packs=("core", "local"))}
         assert rule_id in hit, f"{rule_id} did not fire on: {sentence}"
 
 
@@ -127,6 +132,51 @@ def test_unless_window_removes_a_hit():
     assert fairhousing.flags(fairhousing.check("Close to Church Street and the park.")) == []
 
 
+@pytest.mark.parametrize(
+    "text",
+    [
+        "An all white street with great curb appeal.",
+        "We cannot accommodate the handicapped.",
+        "Applicants must be born in this country.",
+        "Not far from the bad side of town.",
+        "Singles and couples will feel at home in the lofts.",
+        "Mentally sound tenants only.",
+        "Homosexuals need not apply.",
+    ],
+)
+def test_documented_misses_from_version_1_0_are_now_caught(text):
+    assert fairhousing.flags(fairhousing.check(text))
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "The kitchen is all white with black hardware.",
+        "All-white cabinets and a white quartz island.",
+        "A husband and wife team of contractors did the remodel.",
+        "The seller's mother kept the garden.",
+        "See the neighborhood map in the packet for nearby churches.",
+        "Sober living rules apply: no alcohol on the property.",
+    ],
+)
+def test_new_rules_do_not_flag_look_alikes(text):
+    assert fairhousing.flags(fairhousing.check(text)) == []
+
+
+def test_local_pack_is_off_by_default_and_opt_in():
+    text = "No Section 8 and income must come from a job."
+    assert fairhousing.check(text) == []
+    found = fairhousing.check(text, packs=("core", "local"))
+    assert {f.rule_id for f in found} == {"source-of-income", "income-source-job"}
+
+
+def test_local_pack_rules_are_marked_not_federal():
+    local = [r for r in fairhousing.load_rules() if r.get("pack") == "local"]
+    assert local and all(r["category"] == "local_law" for r in local)
+    assert all("not federal" in r["reason"] for r in local)
+    assert all(r.get("pack", "core") == "core" for r in fairhousing.load_rules() if r["category"] != "local_law")
+
+
 def test_matching_is_case_insensitive():
     assert fairhousing.flags(fairhousing.check("NO KIDS"))
 
@@ -152,6 +202,8 @@ def test_cli_exit_codes(capsys):
     assert main(["check", "Perfect for young couples."]) == 1
     assert main(["check", "Perfect for young couples.", "--no-fail"]) == 0
     assert main(["check", "Three bedrooms and a deck."]) == 0
+    assert main(["check", "No Section 8."]) == 0
+    assert main(["check", "No Section 8.", "--pack", "local"]) == 1
     capsys.readouterr()
     assert main(["check", "No kids.", "--json", "--no-fail"]) == 0
     out = json.loads(capsys.readouterr().out)

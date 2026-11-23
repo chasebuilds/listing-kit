@@ -41,7 +41,7 @@
 
   function run() {
     var text = box.value;
-    var findings = window.FairHousing.check(text, rules);
+    var findings = window.FairHousing.check(text, rules, document.getElementById('local-pack').checked ? ['core', 'local'] : ['core']);
     renderPreview(text, findings);
     list.textContent = '';
     var counts = { avoid: 0, review: 0, note: 0 };
@@ -72,6 +72,7 @@
 
   var timer;
   box.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(run, 150); });
+  document.getElementById('local-pack').addEventListener('change', run);
   document.getElementById('run').addEventListener('click', run);
   document.getElementById('sample').addEventListener('click', function () { box.value = sample; run(); });
   document.getElementById('clear').addEventListener('click', function () { box.value = ''; run(); box.focus(); });

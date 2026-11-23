@@ -36,10 +36,11 @@ def run_node(payload):
 def test_checker_js_matches_python_on_every_sentence():
     texts = sentences()
     rules = json.loads(fairhousing.rules_json())
-    js = run_node({"op": "check", "rules": rules, "texts": texts})
-    for text, got in zip(texts, js, strict=True):
-        want = [[f.rule_id, f.start, f.end, f.severity] for f in fairhousing.check(text)]
-        assert got == want, text
+    for packs in (["core"], ["core", "local"]):
+        js = run_node({"op": "check", "rules": rules, "texts": texts, "packs": packs})
+        for text, got in zip(texts, js, strict=True):
+            want = [[f.rule_id, f.start, f.end, f.severity] for f in fairhousing.check(text, packs=tuple(packs))]
+            assert got == want, (packs, text)
 
 
 def test_mortgage_js_matches_python():

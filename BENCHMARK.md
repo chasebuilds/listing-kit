@@ -11,18 +11,18 @@ What is measured: for each invented sentence, does the checker flag it (at least
 
 | Set | Sentences | TP | FP | FN | TN | Precision | Recall |
 |---|---|---|---|---|---|---|---|
-| dev | 127 | 61 | 4 | 5 | 57 | 93.8% | 92.4% |
-| heldout | 137 | 47 | 3 | 18 | 69 | 94.0% | 72.3% |
-| **all** | 264 | 108 | 7 | 23 | 126 | 93.9% | 82.4% |
+| dev | 258 | 121 | 4 | 4 | 129 | 96.8% | 96.8% |
+| heldout | 143 | 40 | 2 | 23 | 78 | 95.2% | 63.5% |
+| **all** | 401 | 161 | 6 | 27 | 207 | 96.4% | 85.6% |
 
-`dev` is the set the rules were tuned on, so its numbers are optimistic. `heldout` was written after the rules were frozen and was not used to tune them. After its first run the only rule edits were relabeling the `basis` field and dropping "sober" from one pattern after reading the HUD memo (it treats "sober" as a lawful conduct rule); no number moved. The heldout row is the one to trust.
+`dev` is everything the rules were tuned on, so its numbers are optimistic. It holds the first sentence set plus the version 1.0.0 held-out set, which was folded in once its misses were used to write new rules. `heldout` is a new set written after the rules were frozen. It was run for the first time when this file was generated and no rule was changed in response. The heldout row is the one to trust.
 
 ## By difficulty (all sentences)
 
 | Set | Sentences | TP | FP | FN | TN | Precision | Recall |
 |---|---|---|---|---|---|---|---|
-| std | 234 | 105 | 1 | 6 | 122 | 99.1% | 94.6% |
-| hard | 30 | 3 | 6 | 17 | 4 | 33.3% | 15.0% |
+| std | 355 | 145 | 3 | 12 | 195 | 98.0% | 92.4% |
+| hard | 46 | 16 | 3 | 15 | 12 | 84.2% | 51.6% |
 
 `hard` marks sentences written to be tricky: paraphrases the rules cannot see and look-alikes that contain a risky word in a harmless sense.
 
@@ -30,58 +30,70 @@ What is measured: for each invented sentence, does the checker flag it (at least
 
 | Group | Sentences | Flagged | Not flagged |
 |---|---|---|---|
-| familial_status | 30 | 25 | 5 |
-| disability | 15 | 11 | 4 |
-| religion | 16 | 14 | 2 |
-| race_color | 13 | 11 | 2 |
-| national_origin | 13 | 11 | 2 |
-| sex | 17 | 13 | 4 |
-| steering | 21 | 19 | 2 |
-| local_law | 6 | 4 | 2 |
-| plain | 55 | 0 | 55 |
-| tricky | 78 | 7 | 71 |
+| familial_status | 45 | 36 | 9 |
+| disability | 22 | 18 | 4 |
+| religion | 24 | 23 | 1 |
+| race_color | 21 | 18 | 3 |
+| national_origin | 19 | 15 | 4 |
+| sex | 26 | 23 | 3 |
+| steering | 31 | 28 | 3 |
+| plain | 91 | 0 | 91 |
+| tricky | 122 | 6 | 116 |
 
 Groups starting with a protected-class name hold sentences that should be flagged; `plain` and `tricky` hold sentences that should not.
 
 ## Missed (should be flagged, was not)
 
 - [dev, hard] A cozy retreat for two, with no need for extra bedrooms.
-- [dev, hard] Ideal for active people who enjoy hills and stairs.
-- [dev, hard] Ideal for those who value Sunday worship nearby.
 - [dev, hard] A quiet street with neighbors from the old country, just like you.
-- [dev, hard] Gentlemen of means will appreciate the study.
-- [heldout, std] Not a good fit for toddlers, the stairs are steep and open.
-- [heldout, std] Singles and couples will feel at home in the lofts.
-- [heldout, hard] Landlord prefers tenants without little ones.
-- [heldout, hard] Two bedrooms, a good match for a pair of professionals who like it calm.
-- [heldout, std] We cannot accommodate the handicapped, there are no elevators.
-- [heldout, hard] Tenants must be mentally sound and sober.
-- [heldout, hard] For people who can handle a long gravel driveway on their own two feet.
-- [heldout, hard] A holy and righteous street where everyone knows their neighbors.
-- [heldout, std] An all white street with great curb appeal.
-- [heldout, hard] Neighborhood is turning, so the price is low.
-- [heldout, hard] Tenants should have been born in this country.
-- [heldout, std] Homosexuals need not apply.
-- [heldout, hard] Every woman dreams of a walk-in closet like this one.
-- [heldout, hard] A masculine retreat with a leather and cigar vibe.
-- [heldout, hard] Prime location, the kind of area where you will fit in.
-- [heldout, hard] Not far from the bad side of town.
-- [heldout, std] We do not take Section 8 in this unit.
-- [heldout, hard] Must earn income from a job, no benefits or subsidies.
+- [dev, hard] Two bedrooms, a good match for a pair of professionals who like it calm.
+- [dev, hard] For people who can handle a long gravel driveway on their own two feet.
+- [heldout, std] Not recommended for families with young children because of the balcony.
+- [heldout, std] Great spot for a family with school-age kids and a dog.
+- [heldout, std] Bring the kids, there are five playgrounds within a mile.
+- [heldout, std] Children are not allowed past 9 pm and families are discouraged.
+- [heldout, hard] Tenants must be a couple, one person alone will not be considered.
+- [heldout, hard] The seller wants a household without small ones underfoot.
+- [heldout, hard] The kind of home where grandparents and grandkids gather every Sunday.
+- [heldout, std] We are unable to rent to people in wheelchairs.
+- [heldout, std] Not for the elderly, there is no elevator and the stairs are steep.
+- [heldout, hard] Residents should be sharp and fully independent.
+- [heldout, hard] Quiet, prayerful street where folks keep the faith.
+- [heldout, std] We will not rent to Black applicants.
+- [heldout, hard] The neighborhood used to be nice before they moved in.
+- [heldout, hard] Come see the part of town where your own people live.
+- [heldout, std] Applicants should speak fluent English and be born here.
+- [heldout, std] Immigrants and refugees will not be considered.
+- [heldout, hard] Tenants must have lived in this country for at least ten generations.
+- [heldout, std] A girl cave with a vanity wall and a wine fridge.
+- [heldout, std] Lesbians and gays are not welcome here.
+- [heldout, hard] Built for a man who likes his tools and his truck.
+- [heldout, std] Close to top-rated elementary and middle schools.
+- [heldout, hard] A fine street for people who share your background.
+- [heldout, hard] You will not find any riffraff around here.
 
 ## False alarms (flagged, should not be)
 
-- [dev, hard] Listed by a husband-and-wife team with 20 years of local experience. (rules: spouse-targeting)
 - [dev, hard] The sellers are a retired couple who maintained the house carefully. (rules: people-adjective)
 - [dev, hard] A short walk to the temple of the old mill, now a museum. (rules: worship-proximity)
-- [dev, hard] Kitchen was remodeled by the owner's mother, a licensed contractor. (rules: spouse-targeting)
-- [heldout, std] Nearby churches, schools and shops are shown on the neighborhood map in the packet. (rules: worship-proximity)
-- [heldout, hard] A mature couple of cedar trees frames the entrance. (rules: people-adjective)
-- [heldout, hard] The home inspector noted that the husband-built deck is in good shape. (rules: spouse-targeting)
+- [dev, std] Nearby churches, schools and shops are shown on the neighborhood map in the packet. (rules: worship-proximity)
+- [dev, hard] A mature couple of cedar trees frames the entrance. (rules: people-adjective)
+- [heldout, std] Moms Club of the neighborhood organizes a yearly yard sale. (rules: spouse-targeting)
+- [heldout, std] The Moms Demand Action billboard on the corner is gone. (rules: spouse-targeting)
+
+## Opt-in state and local law pack
+
+Source-of-income wording (for example refusing housing vouchers) is state or local law, not federal. Its rules are off by default and run only with `--pack local` or the checkbox on the checker page. These sentences are scored separately, with the pack on, and are not in the tables above.
+
+| Set | Sentences | TP | FP | FN | TN | Precision | Recall |
+|---|---|---|---|---|---|---|---|
+| local pack | 18 | 10 | 0 | 1 | 7 | 100.0% | 90.9% |
+
+- missed: Tenants must hold a job, we do not consider other money.
 
 ## Policy cases
 
-78 clean sentences are deliberately tricky ("family room", "single-family", "master bedroom", "Church Street", "wheelchair accessible", "mom-and-pop" and similar). 71 of them are correctly left unflagged, and 7 carry a style note only.
+122 clean sentences are deliberately tricky ("family room", "single-family", "master bedroom", "Church Street", "wheelchair accessible", "mom-and-pop" and similar). 116 of them are correctly left unflagged, and 10 carry a style note only.
 
 ## Limits of this benchmark
 

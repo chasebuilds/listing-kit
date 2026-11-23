@@ -44,6 +44,12 @@ class BuildResult:
     price: int
     address_line: str
     warnings: list[fairhousing.Finding] = field(default_factory=list)
+    status: str = ""
+    beds: int = 0
+    baths: str = ""
+    sqft: str = ""
+    next_open: dict[str, str] | None = None
+    photo_stats: dict[str, int] = field(default_factory=dict)
 
 
 # ---------- small helpers ----------
@@ -116,12 +122,22 @@ def json_for_script(obj: Any) -> str:
 # ---------- photos ----------
 
 
-def process_photos(listing: dict[str, Any], out: Path) -> list[dict[str, Any]]:
+def process_photos(listing: dict[str, Any], out: Path) -> tuple[list[dict[str, Any]], dict[str, int]]:
+    """Resize each photo to WebP at 640, 1280 and up to 1920 pixels wide (never upscaled).
+
+    Re-encoding drops EXIF data, including any GPS position, from what gets published.
+    Returns the template data and byte counts: original files, the phone-size copies, and all copies.
+    """
     base: Path = listing["_base"]
     pdir = out / "photos"
-    pdir.mkdir(parents=True, exist_ok=True)
+    if pdir.exists():
+        shutil.rmtree(pdir)
+    pdir.mkdir(parents=True)
     result = []
+    stats = {"photos": 0, "original_bytes": 0, "phone_bytes": 0, "output_bytes": 0}
     for i, photo in enumerate(listing["photos"], 1):
+        stats["original_bytes"] += (base / photo["file"]).stat().st_size
+        stats["photos"] += 1
         with Image.open(base / photo["file"]) as raw:
             img = ImageOps.exif_transpose(raw).convert("RGB")
         variants: list[tuple[int, str, tuple[int, int]]] = []
@@ -130,8 +146,10 @@ def process_photos(listing: dict[str, Any], out: Path) -> list[dict[str, Any]]:
                 (width, round(img.height * width / img.width)), Image.Resampling.LANCZOS
             )
             name = f"p{i}-{scaled.width}.webp"
-            scaled.save(pdir / name, "WEBP", quality=78, method=6)
+            scaled.save(pdir / name, "WEBP", quality=78, method=4)
             variants.append((scaled.width, f"photos/{name}", scaled.size))
+            stats["output_bytes"] += (pdir / name).stat().st_size
+        stats["phone_bytes"] += (out / variants[0][1]).stat().st_size
         small = variants[0]
         mid = ([v for v in variants if v[0] <= 1280] or variants)[-1]
         large = variants[-1]
@@ -153,7 +171,7 @@ def process_photos(listing: dict[str, Any], out: Path) -> list[dict[str, Any]]:
             card.save(pdir / "og.jpg", "JPEG", quality=82, optimize=True, progressive=True)
             thumb = ImageOps.fit(img, (480, 320), Image.Resampling.LANCZOS)
             thumb.save(pdir / "thumb.webp", "WEBP", quality=75)
-    return result
+    return result, stats
 
 
 # ---------- one listing ----------
@@ -176,7 +194,7 @@ def build_listing(
     addr = listing["address"]
     address_line = f"{addr['street']}, {addr['city']}, {addr['region']} {addr['postal_code']}"
     site_url = listing.get("site_url", "").rstrip("/")
-    photos = process_photos(listing, out)
+    photos, photo_stats = process_photos(listing, out)
 
     accent = agent.get("brand_color") or THEME_ACCENT[theme]
     link = readable_link(accent, THEME_BG[theme])
@@ -340,6 +358,14 @@ def build_listing(
     return BuildResult(
         listing["slug"], out, listing["title"], theme, "photos/thumb.webp",
         listing["price"], address_line, findings,
+        status=listing["status"],
+        beds=listing["beds"],
+        baths=baths_text(listing["baths"]),
+        sqft=number(listing["sqft"]),
+        next_open=(
+            {"when": open_houses[0]["when"], "end": open_houses[0]["end_iso"]} if open_houses else None
+        ),
+        photo_stats=photo_stats,
     )
 
 
@@ -366,14 +392,22 @@ SAMPLE_TEXT = (
 )
 
 
+SORTS = ("file", "price-asc", "price-desc", "title")
+
+
 def build_site(
     paths: list[Path],
     out: Path,
     *,
     checker: bool = False,
-    index_title: str = "Listing Kit demo",
+    index_title: str = "My listings",
+    index_config: dict[str, Any] | None = None,
+    sort: str = "file",
     check_files: bool = True,
 ) -> list[BuildResult]:
+    """Build one page per listing. Several listings also get an index page ("my listings")."""
+    if sort not in SORTS:
+        raise ValueError(f"sort must be one of {', '.join(SORTS)}")
     out.mkdir(parents=True, exist_ok=True)
     listings = [load_listing(p, check_files=check_files) for p in paths]
     slugs = [x["slug"] for x in listings]
@@ -386,21 +420,46 @@ def build_site(
     else:
         for item in listings:
             results.append(build_listing(item, out / item["slug"], assets_rel="../assets/"))
-        (out / "index.html").write_text(
-            env.get_template("index.html.j2").render(
-                css=(PKG / "themes" / "site.css").read_text("utf-8"),
-                title=index_title,
-                items=[
-                    {
-                        "slug": r.slug, "title": r.title, "theme": r.theme, "price": money(r.price),
-                        "address": r.address_line, "thumb": f"{r.slug}/{r.thumb}",
-                    }
-                    for r in results
-                ],
-                checker=checker,
-            ),
-            "utf-8",
-        )
+        write_index(results, out, index_title, index_config or {}, sort, checker)
     if checker:
         build_checker_page(out / "checker")
     return results
+
+
+def write_index(
+    results: list[BuildResult], out: Path, title: str, config: dict[str, Any], sort: str, checker: bool
+) -> None:
+    ordered = list(results)
+    if sort == "price-asc":
+        ordered.sort(key=lambda r: r.price)
+    elif sort == "price-desc":
+        ordered.sort(key=lambda r: -r.price)
+    elif sort == "title":
+        ordered.sort(key=lambda r: r.title.lower())
+    agent = config.get("agent")
+    if agent:
+        agent = {**agent, "phone_digits": "+1" + re.sub(r"\D", "", agent.get("phone", ""))[-10:]}
+    counts: dict[str, int] = {}
+    for r in ordered:
+        counts[r.status] = counts.get(r.status, 0) + 1
+    page_title = config.get("title", title)
+    intro = config.get("intro", "")
+    html_out = env.get_template("index.html.j2").render(
+        css=(PKG / "themes" / "site.css").read_text("utf-8"),
+        title=page_title,
+        intro=intro,
+        description=intro or f"{len(ordered)} listings, each with photos, a map, open house times and a contact form.",
+        agent=agent,
+        statuses=[{"name": k, "count": v} for k, v in counts.items()],
+        footer="Equal Housing Opportunity. Made with listing-kit by Chase Builds.",
+        items=[
+            {
+                "slug": r.slug, "title": r.title, "theme": r.theme, "price": money(r.price),
+                "address": r.address_line, "thumb": f"{r.slug}/{r.thumb}", "status": r.status,
+                "beds": r.beds, "baths": r.baths, "sqft": r.sqft, "next_open": r.next_open,
+            }
+            for r in ordered
+        ],
+        checker=checker,
+    )
+    (out / "index.html").write_text(html_out, "utf-8")

@@ -103,3 +103,38 @@ def load_listing(path: str | Path, *, check_files: bool = True) -> dict[str, Any
     listing = finish(data)
     listing["_base"] = path.parent
     return listing
+
+
+INDEX_SCHEMA: dict[str, Any] = {
+    "type": "object",
+    "required": ["title"],
+    "additionalProperties": False,
+    "properties": {
+        "title": {"type": "string", "minLength": 1, "maxLength": 120},
+        "intro": {"type": "string", "maxLength": 600},
+        "agent": {
+            "type": "object",
+            "required": ["name"],
+            "additionalProperties": False,
+            "properties": {
+                "name": {"type": "string", "minLength": 1},
+                "brokerage": {"type": "string"},
+                "phone": {"type": "string"},
+                "email": {"type": "string", "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"},
+            },
+        },
+    },
+}
+
+
+def load_index_config(path: str | Path) -> dict[str, Any]:
+    """Load the optional 'my listings' page settings: title, intro and the agent block."""
+    data = yaml.safe_load(Path(path).read_text(encoding="utf-8"))
+    validator = Draft202012Validator(INDEX_SCHEMA)
+    problems = [
+        f"{'.'.join(str(p) for p in e.absolute_path) or '(top level)'}: {e.message}"
+        for e in sorted(validator.iter_errors(data), key=lambda e: list(e.absolute_path))
+    ]
+    if problems:
+        raise ListingError(problems)
+    return data

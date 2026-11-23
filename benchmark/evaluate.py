@@ -17,6 +17,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from listing_kit import fairhousing  # noqa: E402
 
+LOCAL_GROUPS = {"local_law", "local_plain"}
 SETS = {"dev": ROOT / "benchmark" / "dev.txt", "heldout": ROOT / "benchmark" / "heldout.txt"}
 
 
@@ -44,7 +45,8 @@ def load(path: Path) -> list[tuple[str, str, str, str]]:
 def run(path: Path) -> list[Row]:
     out = []
     for label, group, difficulty, text in load(path):
-        findings = fairhousing.check(text)
+        packs = ("core", "local") if group in LOCAL_GROUPS else ("core",)
+        findings = fairhousing.check(text, packs=packs)
         hard = fairhousing.flags(findings)
         out.append(
             Row(
@@ -83,7 +85,9 @@ HEAD = "| Set | Sentences | TP | FP | FN | TN | Precision | Recall |\n|---|---|-
 
 
 def report() -> str:
-    results = {name: run(path) for name, path in SETS.items() if path.exists()}
+    full = {name: run(path) for name, path in SETS.items() if path.exists()}
+    localrows = [r for rows in full.values() for r in rows if r.group in LOCAL_GROUPS]
+    results = {n: [r for r in rows if r.group not in LOCAL_GROUPS] for n, rows in full.items()}
     allrows = [r for rows in results.values() for r in rows]
     lines = [
         "# Benchmark",
@@ -106,10 +110,10 @@ def report() -> str:
     lines.append(table_row("**all**", metrics(allrows)))
     lines += [
         "",
-        "`dev` is the set the rules were tuned on, so its numbers are optimistic. `heldout` was written after "
-        "the rules were frozen and was not used to tune them. After its first run the only rule edits were "
-        "relabeling the `basis` field and dropping \"sober\" from one pattern after reading the HUD memo "
-        "(it treats \"sober\" as a lawful conduct rule); no number moved. The heldout row is the one to trust.",
+        "`dev` is everything the rules were tuned on, so its numbers are optimistic. It holds the first sentence set "
+        "plus the version 1.0.0 held-out set, which was folded in once its misses were used to write new rules. "
+        "`heldout` is a new set written after the rules were frozen. It was run for the first time when this "
+        "file was generated and no rule was changed in response. The heldout row is the one to trust.",
         "",
         "## By difficulty (all sentences)",
         "",
@@ -145,6 +149,24 @@ def report() -> str:
         for n, r in items:
             extra = f" (rules: {', '.join(r.hits)})" if r.hits else ""
             lines.append(f"- [{n}, {r.difficulty}] {r.text}{extra}")
+        lines.append("")
+
+    lm = metrics(localrows) if localrows else None
+    if lm:
+        lines += [
+            "## Opt-in state and local law pack",
+            "",
+            "Source-of-income wording (for example refusing housing vouchers) is state or local law, not federal. "
+            "Its rules are off by default and run only with `--pack local` or the checkbox on the checker page. "
+            "These sentences are scored separately, with the pack on, and are not in the tables above.",
+            "",
+            HEAD,
+            table_row("local pack", lm),
+            "",
+        ]
+        for r in localrows:
+            if (r.label == "F") != r.flagged:
+                lines.append(f"- {'missed' if r.label == 'F' else 'false alarm'}: {r.text}")
         lines.append("")
 
     tricky = [r for r in allrows if r.label == "C" and r.group == "tricky"]

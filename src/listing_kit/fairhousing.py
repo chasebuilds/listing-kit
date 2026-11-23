@@ -65,7 +65,7 @@ def load_rules(path: str | Path | None = None) -> list[dict[str, Any]]:
 
 def rules_json(rules: list[dict[str, Any]] | None = None) -> str:
     """The same rules as JSON for the in-page checker."""
-    keep = ("id", "category", "severity", "basis", "pattern", "unless", "reason", "suggest")
+    keep = ("id", "pack", "category", "severity", "basis", "pattern", "unless", "reason", "suggest")
     rules = rules if rules is not None else list(default_rules())
     return json.dumps(
         {"window": WINDOW, "rules": [{k: r[k] for k in keep if k in r} for r in rules]},
@@ -73,8 +73,12 @@ def rules_json(rules: list[dict[str, Any]] | None = None) -> str:
     )
 
 
-def check(text: str, rules: list[dict[str, Any]] | None = None) -> list[Finding]:
+def check(
+    text: str, rules: list[dict[str, Any]] | None = None, packs: tuple[str, ...] = ("core",)
+) -> list[Finding]:
+    """Check text. Only rules in the given packs run; the default is the core pack (federal classes)."""
     rules = rules if rules is not None else list(default_rules())
+    rules = [r for r in rules if r.get("pack", "core") in packs]
     folded = normalize(text)
     found: list[Finding] = []
     for rule in rules:

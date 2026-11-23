@@ -8,7 +8,7 @@ from listing_kit import config
 from listing_kit.cli import main
 
 ROOT = Path(__file__).resolve().parent.parent
-EXAMPLES = sorted((ROOT / "examples").glob("*.yml"))
+EXAMPLES = sorted(p for p in (ROOT / "examples").glob("*.yml") if p.name != "index.yml")
 
 
 def base():

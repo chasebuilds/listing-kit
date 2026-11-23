@@ -29,5 +29,6 @@ const url = (p) => pathToFileURL(path.join(site, p)).href;
   await shot('maple-court/index.html', 'map.png', 1280, 860, { map: true });
   await shot('maple-court/index.html', 'mobile.png', 390, 844, { scale: 2 });
   await shot('maple-court/flyer.html', 'flyer.png', 900, 1100);
+  await shot('index.html', 'index.png', 1180, 1000);
   await browser.close();
 })();

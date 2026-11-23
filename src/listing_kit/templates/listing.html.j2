@@ -62,7 +62,7 @@
      {% for p in photos %}
      <figure aria-label="Photo {{ loop.index }} of {{ photos|length }}">
       <button type="button" class="open" aria-label="Enlarge photo {{ loop.index }}: {{ p.alt }}">
-       <img src="{{ p.w640 }}" srcset="{{ p.srcset }}" sizes="(min-width:960px) 700px, 100vw" width="{{ p.w }}" height="{{ p.h }}" alt="{{ p.alt }}"{% if not loop.first %} loading="lazy"{% endif %}>
+       <img src="{{ p.w1280 }}" srcset="{{ p.srcset }}" sizes="(min-width:960px) 700px, 100vw" width="{{ p.w }}" height="{{ p.h }}" alt="{{ p.alt }}" decoding="async"{% if not loop.first %} loading="lazy"{% endif %}>
       </button>
       {% if p.caption %}<figcaption>{{ p.caption }}</figcaption>{% endif %}
      </figure>

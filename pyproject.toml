@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "listing-kit"
-version = "1.0.0"
+version = "1.1.0"
 description = "One YAML file to a fast single-property listing website, plus a fair-housing wording checker."
 readme = "README.md"
 requires-python = ">=3.11"

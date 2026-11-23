@@ -1,0 +1,8 @@
+# Settings for the "my listings" page that listing-kit builds when you give it more than one listing.
+title: Listings by Riley Example
+intro: Three listings from one agent, each made from one YAML file. The homes, people, addresses and photos on this demo are all invented.
+agent:
+  name: Riley Example
+  brokerage: Sample Realty Group
+  phone: "(555) 010-0142"
+  email: riley@example.com

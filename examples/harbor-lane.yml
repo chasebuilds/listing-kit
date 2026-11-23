@@ -1,0 +1,72 @@
+# Sample listing 3. Everything here is invented: the home, address, agent and photos.
+slug: harbor-lane
+site_url: https://chasebuilds.github.io/listing-kit/harbor-lane
+theme: coastal
+status: Pending
+notice: "Sample listing for a software demo. The home, address, agent and photos are invented, and the map shows a general area only."
+title: Harbor Lane Cottage
+address:
+  street: 37 Harbor Lane
+  city: Saltmarsh
+  region: NC
+  postal_code: "28400"
+price: 342000
+beds: 2
+baths: 1
+sqft: 1120
+lot_sqft: 5400
+year_built: 1951
+description: |
+  A 1951 cottage on a quiet lane, six blocks from the waterfront. The front room has tall windows, a brick fireplace and original pine floors. The galley kitchen was updated in 2023 with new cabinets, a gas range and a pantry cupboard.
+
+  Both bedrooms have double closets. The bath has a tiled tub and shower and a window that opens to the side yard. A screened porch at the back looks over a fenced garden with raised beds and a storage shed.
+
+  The roof and water heater were replaced in 2022. An offer has been accepted and the sale is pending; the page stays up while the contract runs.
+features:
+  - Brick fireplace
+  - Original pine floors
+  - Updated kitchen with gas range
+  - Screened back porch
+  - Fenced garden with raised beds
+  - New roof (2022)
+  - Off-street parking for two cars
+photos:
+  - file: photos/harbor-1-front.jpg
+    alt: Illustration of a pale blue cottage with a yellow door, a covered porch and a front lawn
+    caption: Front of the cottage
+  - file: photos/harbor-2-living.jpg
+    alt: Illustration of a living room with a teal sofa, a floor lamp and a sunny window
+    caption: Front room
+  - file: photos/harbor-3-kitchen.jpg
+    alt: Illustration of a light kitchen with white cabinets, an island with stools and pendant lights
+    caption: Kitchen
+  - file: photos/harbor-4-bedroom.jpg
+    alt: Illustration of a bedroom with a bed, two nightstands with lamps and a window
+    caption: Bedroom
+  - file: photos/harbor-5-bath.jpg
+    alt: Illustration of a bathroom with white tile, a tub and a wood vanity
+    caption: Bath
+  - file: photos/harbor-6-yard.jpg
+    alt: Illustration of a fenced garden with a deck, a table with an umbrella and string lights
+    caption: Back garden
+timezone: America/New_York
+agent:
+  name: Riley Example
+  brokerage: Sample Realty Group
+  phone: "(555) 010-0142"
+  email: riley@example.com
+  tagline: An invented agent for the listing-kit demo.
+  brand_color: "#0b6a78"
+location:
+  lat: 34.2257
+  lng: -77.9447
+  zoom: 14
+  approximate: true
+lead:
+  mode: mailto
+mortgage:
+  down_payment_pct: 10
+  rate_pct: 6.75
+  term_years: 30
+  tax_rate_pct: 0.8
+  insurance_per_year: 2400

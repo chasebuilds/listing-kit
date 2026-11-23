@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fair-housing wording checker | listing-kit</title>
+<meta name="description" content="Paste a listing description and see wording that can signal a preference based on a protected class. A writing aid, not legal advice. Runs in your browser.">
+<meta property="og:title" content="Fair-housing wording checker">
+<meta property="og:description" content="Paste a listing description and see wording that can signal a preference based on a protected class. A writing aid, not legal advice.">
+<meta name="theme-color" content="#8a3a1c">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%238a3a1c' d='M16 3 2 16h4v12h8v-8h4v8h8V16h4z'/%3E%3C/svg%3E">
+<style>
+{{ css | safe }}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <div class="pillnav">
+  <b>listing-kit</b>
+  <nav aria-label="Main">
+   <a href="{{ home }}">Sample listings</a>
+   <a href="./" aria-current="page">Wording checker</a>
+   <a href="https://github.com/chasebuilds/listing-kit">GitHub</a>
+  </nav>
+ </div>
+ <main>
+  <section class="panel">
+   <h1>Fair-housing wording checker</h1>
+   <p class="lede">Paste a listing description. The checker marks wording that can read as a preference or limit based on race, color, religion, sex, disability, familial status or national origin, and suggests a rewrite that describes the property instead of the buyer.</p>
+   <p class="warn"><strong>A writing aid, not legal advice.</strong> A mark means "take a second look", not "this is illegal". No marks does not mean the text is compliant. Ask your broker or a fair housing attorney about anything that matters. Your text stays in your browser and is never sent anywhere.</p>
+   <label for="text"><strong>Listing description</strong></label>
+   <textarea id="text" spellcheck="true" aria-describedby="hint">{{ sample }}</textarea>
+   <p id="hint" class="meta">Results update as you type.</p>
+   <div class="row">
+    <button type="button" class="btn" id="run">Check wording</button>
+    <button type="button" class="btn ghost" id="sample">Reset sample</button>
+    <button type="button" class="btn ghost" id="clear">Clear</button>
+   </div>
+  </section>
+  <section class="panel" aria-labelledby="res-h">
+   <h2 id="res-h">Results</h2>
+   <div id="results" role="status" aria-live="polite">
+    <p class="summary" id="summary"></p>
+    <div class="preview" id="preview" aria-label="Your text with marked phrases"></div>
+    <ul class="findings" id="findings"></ul>
+   </div>
+  </section>
+  <section class="panel">
+   <h2>What the labels mean</h2>
+   <ul>
+    <li><span class="sev avoid">avoid</span> states or clearly signals a preference or limit. Rewrite it.</li>
+    <li><span class="sev review">review</span> often reads as a preference. Check the context.</li>
+    <li><span class="sev note">note</span> style advice only, for example "master bedroom" (HUD does not ban it; many MLSs prefer "primary").</li>
+   </ul>
+   <p>Rules are plain YAML with a reason and a rewrite for each, based on the Fair Housing Act (42 U.S.C. 3604(c)) and HUD's advertising guidance. Read them and the measured precision and recall in the <a href="https://github.com/chasebuilds/listing-kit">repository</a>.</p>
+  </section>
+ </main>
+ <footer>Made with listing-kit by Chase Builds. MIT license.</footer>
+</div>
+<script type="application/json" id="rules-data">{{ rules | safe }}</script>
+<script src="{{ assets }}checker.js"></script>
+<script src="{{ assets }}checker-page.js"></script>
+</body>
+</html>

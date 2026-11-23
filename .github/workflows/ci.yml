@@ -1,0 +1,47 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: pip install -e ".[dev]"
+      - name: Lint Python
+        run: ruff check .
+      - name: Lint browser scripts
+        run: for f in src/listing_kit/static/*.js tests/*.cjs; do node --check "$f"; done
+      - name: Tests (schema, ics, checker rules, page output, JS parity)
+        run: pytest -q
+      - name: Benchmark file is current
+        run: |
+          python benchmark/evaluate.py > /dev/null
+          git diff --exit-code BENCHMARK.md
+
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: pip install -e .
+      - run: listing-kit build examples/maple-court.yml examples/alder-street.yml -o site --checker
+      - run: npm install --no-save playwright@1.65.1
+      - run: npx playwright install --with-deps chromium
+      - run: node tests/browser_smoke.cjs site

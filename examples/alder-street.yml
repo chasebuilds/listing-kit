@@ -1,0 +1,80 @@
+# Sample listing 2. Everything here is invented: the home, address, agent and photos.
+slug: alder-street
+site_url: https://chasebuilds.github.io/listing-kit/alder-street
+theme: heritage
+status: For sale
+notice: "Sample listing for a software demo. The home, address, agent and photos are invented, and the map shows a general area only."
+title: Alder Street Colonial
+address:
+  street: 1180 Alder Street
+  city: Brookmere
+  region: IL
+  postal_code: "60000"
+price: 725000
+beds: 4
+baths: 3.5
+sqft: 2960
+lot_sqft: 11000
+year_built: 1998
+hoa_monthly: 85
+description: |
+  A brick colonial on a deep, tree-lined lot. The two-story foyer opens to a formal dining room, a study with built-in shelves and a family room with a gas fireplace that flows into the eat-in kitchen.
+
+  The kitchen has white cabinets, a six-burner range, a double oven and a pantry closet. Upstairs, the primary suite has a sitting area, two closets and a bath with a double vanity and a separate shower. Three more bedrooms and two baths complete the second floor.
+
+  The finished lower level has a recreation room, a guest bedroom with a full bath and a utility room with a workbench. A two-car attached garage, a screened porch and a paver patio finish the back of the house. Monthly HOA dues cover snow removal and common areas.
+features:
+  - Two-story foyer
+  - Study with built-in shelves
+  - Family room with gas fireplace
+  - Six-burner range and double oven
+  - Primary suite with sitting area
+  - Finished lower level with guest bedroom
+  - Screened porch and paver patio
+  - Two-car attached garage
+  - Zoned heating and cooling
+  - Whole-house generator hookup
+photos:
+  - file: photos/alder-1-front.jpg
+    alt: Illustration of a red brick colonial house with a navy front door, black shutters and a lawn
+    caption: Front of the house
+  - file: photos/alder-2-living.jpg
+    alt: Illustration of a living room with a blue sofa, a coffee table and a window with curtains
+    caption: Family room
+  - file: photos/alder-3-kitchen.jpg
+    alt: Illustration of a white kitchen with a dark counter, a navy island and three stools
+    caption: Kitchen
+  - file: photos/alder-4-bedroom.jpg
+    alt: Illustration of a bedroom with a tall headboard, a bed with a blue blanket and two lamps
+    caption: Primary bedroom
+  - file: photos/alder-5-bath.jpg
+    alt: Illustration of a bathroom with a tub, a glass-front mirror and a wood vanity
+    caption: Primary bath
+  - file: photos/alder-6-yard.jpg
+    alt: Illustration of a back yard with a deck, a patio table with an umbrella and tall trees
+    caption: Back yard and patio
+timezone: America/Chicago
+open_houses:
+  - start: "2026-12-05 11:00"
+    end: "2026-12-05 13:00"
+    note: Enter through the front door. Shoe covers are at the entry.
+agent:
+  name: Morgan Placeholder
+  brokerage: Example and Co. Realty
+  phone: "(555) 010-0178"
+  email: morgan@example.com
+  tagline: An invented agent for the listing-kit demo.
+  brand_color: "#1f3a6b"
+location:
+  lat: 41.7731
+  lng: -88.1479
+  zoom: 14
+  approximate: true
+lead:
+  mode: mailto
+mortgage:
+  down_payment_pct: 15
+  rate_pct: 6.25
+  term_years: 30
+  tax_rate_pct: 1.8
+  insurance_per_year: 2100

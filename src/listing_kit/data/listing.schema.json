@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "listing-kit listing file",
+  "type": "object",
+  "required": ["title", "address", "price", "beds", "baths", "sqft", "description", "photos", "agent", "location"],
+  "additionalProperties": false,
+  "properties": {
+    "slug": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+    "theme": {"enum": ["glass", "heritage", "coastal"]},
+    "status": {"type": "string", "maxLength": 30},
+    "notice": {"type": "string", "maxLength": 300},
+    "site_url": {"type": "string", "pattern": "^https?://"},
+    "title": {"type": "string", "minLength": 1, "maxLength": 120},
+    "address": {
+      "type": "object",
+      "required": ["street", "city", "region", "postal_code"],
+      "additionalProperties": false,
+      "properties": {
+        "street": {"type": "string", "minLength": 1},
+        "city": {"type": "string", "minLength": 1},
+        "region": {"type": "string", "minLength": 1},
+        "postal_code": {"type": "string", "minLength": 1}
+      }
+    },
+    "price": {"type": "integer", "minimum": 1},
+    "beds": {"type": "integer", "minimum": 0, "maximum": 99},
+    "baths": {"type": "number", "minimum": 0, "maximum": 99, "multipleOf": 0.5},
+    "sqft": {"type": "integer", "minimum": 1},
+    "lot_sqft": {"type": "integer", "minimum": 1},
+    "year_built": {"type": "integer", "minimum": 1600, "maximum": 2100},
+    "hoa_monthly": {"type": "number", "minimum": 0},
+    "description": {"type": "string", "minLength": 1},
+    "features": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "photos": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["file", "alt"],
+        "additionalProperties": false,
+        "properties": {
+          "file": {"type": "string", "minLength": 1},
+          "alt": {"type": "string", "minLength": 1},
+          "caption": {"type": "string"}
+        }
+      }
+    },
+    "timezone": {"type": "string", "minLength": 1},
+    "open_houses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["start", "end"],
+        "additionalProperties": false,
+        "properties": {
+          "start": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}[ T]\\d{2}:\\d{2}$"},
+          "end": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}[ T]\\d{2}:\\d{2}$"},
+          "note": {"type": "string"}
+        }
+      }
+    },
+    "agent": {
+      "type": "object",
+      "required": ["name", "email"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "brokerage": {"type": "string"},
+        "phone": {"type": "string"},
+        "email": {"type": "string", "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"},
+        "license": {"type": "string"},
+        "tagline": {"type": "string"},
+        "brand_color": {"type": "string", "pattern": "^#[0-9a-fA-F]{6}$"}
+      }
+    },
+    "location": {
+      "type": "object",
+      "required": ["lat", "lng"],
+      "additionalProperties": false,
+      "properties": {
+        "lat": {"type": "number", "minimum": -90, "maximum": 90},
+        "lng": {"type": "number", "minimum": -180, "maximum": 180},
+        "zoom": {"type": "integer", "minimum": 3, "maximum": 19},
+        "approximate": {"type": "boolean"}
+      }
+    },
+    "lead": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {"enum": ["mailto", "endpoint"]},
+        "endpoint": {"type": "string", "pattern": "^https://"}
+      }
+    },
+    "mortgage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "down_payment_pct": {"type": "number", "minimum": 0, "maximum": 100},
+        "rate_pct": {"type": "number", "minimum": 0, "maximum": 30},
+        "term_years": {"type": "integer", "minimum": 1, "maximum": 50},
+        "tax_rate_pct": {"type": "number", "minimum": 0, "maximum": 10},
+        "insurance_per_year": {"type": "number", "minimum": 0}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"lead": {"properties": {"mode": {"const": "endpoint"}}, "required": ["mode"]}}, "required": ["lead"]},
+      "then": {"properties": {"lead": {"required": ["endpoint"]}}}
+    }
+  ]
+}

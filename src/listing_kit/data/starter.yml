@@ -1,0 +1,55 @@
+# Your listing. Fill this in, put your photos next to this file, then run:
+#   listing-kit build listing.yml -o site
+# Every value here is a placeholder. Use real details for a real listing, and the agent's own photos.
+theme: glass            # glass, heritage or coastal
+status: For sale        # For sale, Pending, Sold, For rent ...
+title: Short name for the home
+address:
+  street: 100 Example Street
+  city: Your Town
+  region: ST
+  postal_code: "00000"
+price: 350000
+beds: 3
+baths: 2               # halves are fine: 2.5
+sqft: 1600
+lot_sqft: 6000          # optional
+year_built: 1990        # optional
+hoa_monthly: 0          # optional
+description: |
+  Describe the property, not the buyer. Write the rooms, the layout, the updates and the lot.
+
+  A second paragraph is fine. Run "listing-kit check" on this text before you publish.
+features:
+  - Updated kitchen
+  - Fenced yard
+photos:                 # the first photo is the hero image; alt text is required
+  - file: photo-1.jpg
+    alt: Front of the house with a gray door and a small lawn
+    caption: Front of the house
+timezone: America/New_York
+open_houses:            # optional; local time at the home
+  - start: "2026-12-05 13:00"
+    end: "2026-12-05 15:00"
+    note: Park on the street.
+agent:
+  name: Your Name
+  brokerage: Your Brokerage
+  phone: "(555) 010-0100"
+  email: you@example.com
+  brand_color: "#1f5f8a"   # optional; buttons and accents
+location:
+  lat: 40.0
+  lng: -80.0
+  zoom: 15
+  approximate: true     # true draws a circle instead of an exact pin
+lead:
+  mode: mailto          # mailto opens the visitor's email app. Or:
+  # mode: endpoint      # posts to a form service such as Formspree or Getform
+  # endpoint: https://formspree.io/f/your-form-id
+mortgage:               # starting values for the payment estimate
+  down_payment_pct: 20
+  rate_pct: 6.5
+  term_years: 30
+  tax_rate_pct: 1.1
+  insurance_per_year: 1400

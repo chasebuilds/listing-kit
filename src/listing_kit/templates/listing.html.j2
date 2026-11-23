@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }} | {{ address_line }}</title>
+<meta name="description" content="{{ meta_description }}">
+<meta name="theme-color" content="{{ accent }}">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='{{ accent | replace('#', '%23') }}' d='M16 3 2 16h4v12h8v-8h4v8h8V16h4z'/%3E%3C/svg%3E">
+{% if canonical %}<link rel="canonical" href="{{ canonical }}">{% endif %}
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ title }} | {{ price_fmt }}">
+<meta property="og:description" content="{{ meta_description }}">
+<meta property="og:image" content="{{ og_image }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{ photos[0].alt }}">
+{% if canonical %}<meta property="og:url" content="{{ canonical }}">{% endif %}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ title }} | {{ price_fmt }}">
+<meta name="twitter:description" content="{{ meta_description }}">
+<meta name="twitter:image" content="{{ og_image }}">
+<link rel="preload" as="image" href="{{ photos[0].w1280 }}" imagesrcset="{{ photos[0].srcset }}" imagesizes="100vw" fetchpriority="high">
+<script>document.documentElement.className+=" js"</script>
+<script type="application/ld+json">{{ jsonld | safe }}</script>
+<style>
+:root{--accent:{{ accent }};--accent-ink:{{ accent_ink }};--link:{{ link }}}
+{{ css | safe }}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the listing details</a>
+<header class="topbar">
+ <div class="wrap">
+  <div class="brand">{{ agent.brokerage or agent.name }}<small>{{ agent.name }}</small></div>
+  <nav class="nav" aria-label="Page actions">
+   <a class="btn ghost small" href="flyer.html">Flyer</a>
+   <a class="btn small" href="#contact">Contact</a>
+  </nav>
+ </div>
+</header>
+<main id="main">
+<section class="hero" aria-labelledby="h1">
+ <img src="{{ photos[0].w1280 }}" srcset="{{ photos[0].srcset }}" sizes="100vw" width="{{ photos[0].w }}" height="{{ photos[0].h }}" alt="{{ photos[0].alt }}" fetchpriority="high">
+ <div class="hero-text"><div class="wrap">
+  <span class="pill">{{ status }}</span>
+  <h1 id="h1">{{ title }}</h1>
+  <p class="addr">{{ address_line }}</p>
+  <p class="price">{{ price_fmt }}</p>
+  <ul class="chips" aria-label="Quick facts">
+   <li>{{ beds }} bed</li><li>{{ baths_fmt }} bath</li><li>{{ sqft_fmt }} sq ft</li>
+  </ul>
+ </div></div>
+</section>
+{% if notice %}<div class="notice"><div class="wrap">{{ notice }}</div></div>{% endif %}
+<div class="wrap layout">
+ <div class="content">
+  <section class="panel gallery-sec" aria-labelledby="h-photos">
+   <h2 id="h-photos">Photos</h2>
+   <div class="gallery" role="group" aria-roledescription="carousel" aria-label="Photo gallery">
+    <div class="track" id="track" tabindex="0" aria-label="Photos, scroll sideways or use the arrow keys">
+     {% for p in photos %}
+     <figure aria-label="Photo {{ loop.index }} of {{ photos|length }}">
+      <button type="button" class="open" aria-label="Enlarge photo {{ loop.index }}: {{ p.alt }}">
+       <img src="{{ p.w640 }}" srcset="{{ p.srcset }}" sizes="(min-width:960px) 700px, 100vw" width="{{ p.w }}" height="{{ p.h }}" alt="{{ p.alt }}"{% if not loop.first %} loading="lazy"{% endif %}>
+      </button>
+      {% if p.caption %}<figcaption>{{ p.caption }}</figcaption>{% endif %}
+     </figure>
+     {% endfor %}
+    </div>
+    {% if photos|length > 1 %}
+    <button type="button" class="gal-btn prev" id="gal-prev" aria-label="Previous photo">&#8249;</button>
+    <button type="button" class="gal-btn next" id="gal-next" aria-label="Next photo">&#8250;</button>
+    {% endif %}
+    <span class="gal-count" id="gal-count" aria-hidden="true">1 / {{ photos|length }}</span>
+   </div>
+  </section>
+
+  <section class="panel" aria-labelledby="h-facts">
+   <h2 id="h-facts">Key facts</h2>
+   <dl class="facts">
+    <div><dt>Price</dt><dd>{{ price_fmt }}</dd></div>
+    <div><dt>Bedrooms</dt><dd>{{ beds }}</dd></div>
+    <div><dt>Bathrooms</dt><dd>{{ baths_fmt }}</dd></div>
+    <div><dt>Living area</dt><dd>{{ sqft_fmt }} sq ft</dd></div>
+    <div><dt>Price per sq ft</dt><dd>{{ ppsf_fmt }}</dd></div>
+    {% if lot_sqft %}<div><dt>Lot</dt><dd>{{ lot_fmt }} sq ft</dd></div>{% endif %}
+    {% if year_built %}<div><dt>Year built</dt><dd>{{ year_built }}</dd></div>{% endif %}
+    {% if hoa_monthly %}<div><dt>HOA</dt><dd>{{ hoa_fmt }}/mo</dd></div>{% endif %}
+   </dl>
+  </section>
+
+  <section class="panel" aria-labelledby="h-about">
+   <h2 id="h-about">About this home</h2>
+   {% for para in paragraphs %}<p>{{ para }}</p>{% endfor %}
+  </section>
+
+  {% if features %}
+  <section class="panel" aria-labelledby="h-feat">
+   <h2 id="h-feat">Features</h2>
+   <ul class="features">{% for f in features %}<li>{{ f }}</li>{% endfor %}</ul>
+  </section>
+  {% endif %}
+
+  {% if open_houses %}
+  <section class="panel" aria-labelledby="h-oh">
+   <h2 id="h-oh">Open house</h2>
+   <ul class="oh">
+    {% for oh in open_houses %}
+    <li data-end="{{ oh.end_iso }}">
+     <span class="when">{{ oh.when }}{% if oh.note %}<span class="note">{{ oh.note }}</span>{% endif %}</span>
+     <span class="links">
+      <a class="btn small" href="{{ oh.ics }}" download>Add to calendar (.ics)</a>
+      <a class="btn ghost small" href="{{ oh.gcal }}" target="_blank" rel="noopener">Google Calendar</a>
+     </span>
+    </li>
+    {% endfor %}
+   </ul>
+  </section>
+  {% endif %}
+
+  <section class="panel map-sec" aria-labelledby="h-map">
+   <h2 id="h-map">Location</h2>
+   <div id="map" role="region" aria-label="Map of the home's area"></div>
+   <p class="map-note">{% if map.approximate %}The circle shows the general area, not the exact spot. {% endif %}<a href="https://www.openstreetmap.org/?mlat={{ map.lat }}&amp;mlon={{ map.lng }}#map={{ map.zoom }}/{{ map.lat }}/{{ map.lng }}" rel="noopener">Open in OpenStreetMap</a>. Map data &copy; OpenStreetMap contributors.</p>
+  </section>
+ </div>
+
+ <aside class="aside" aria-label="Contact and tools">
+  <section class="panel form-sec" id="contact" aria-labelledby="h-contact">
+   <h2 id="h-contact">Ask about this home</h2>
+   <div class="agent">
+    <div class="mono" aria-hidden="true">{{ initials }}</div>
+    <div>
+     <p><strong>{{ agent.name }}</strong></p>
+     {% if agent.brokerage %}<p class="fine">{{ agent.brokerage }}{% if agent.license %} | {{ agent.license }}{% endif %}</p>{% endif %}
+     {% if agent.phone %}<p><a href="tel:{{ phone_digits }}">{{ agent.phone }}</a></p>{% endif %}
+     <p><a href="mailto:{{ agent.email }}">{{ agent.email }}</a></p>
+    </div>
+   </div>
+   {% if agent.tagline %}<p class="fine" style="margin-top:10px">{{ agent.tagline }}</p>{% endif %}
+   <form id="lead-form" action="{{ form_action }}" method="post"{% if lead.mode == 'mailto' %} enctype="text/plain"{% endif %} style="margin-top:12px">
+    <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" autocomplete="name" required></div>
+    <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+    <div class="field"><label for="f-phone">Phone (optional)</label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>
+    <div class="field"><label for="f-msg">Message</label><textarea id="f-msg" name="message" required>I would like to know more about {{ address_line }}.</textarea></div>
+    <div class="hp" aria-hidden="true"><label for="f-gotcha">Leave this field empty</label><input id="f-gotcha" name="_gotcha" tabindex="-1" autocomplete="off"></div>
+    <button class="btn" type="submit">Send message</button>
+    <div id="lead-status" role="status" aria-live="polite"></div>
+    <p class="fine" style="margin-top:8px">{% if lead.mode == 'mailto' %}This opens your email app with your message filled in. Nothing is stored on this page.{% else %}Your message goes to the agent through a form service.{% endif %}</p>
+   </form>
+  </section>
+
+  <section class="panel mortgage-sec" aria-labelledby="h-mort">
+   <h2 id="h-mort">Monthly payment estimate</h2>
+   <form id="mortgage-form" novalidate>
+    <div class="field"><label for="m-price">Home price ($)</label><input id="m-price" type="number" inputmode="decimal" min="0" step="1000" value="{{ price }}"></div>
+    <div class="row2">
+     <div class="field"><label for="m-down">Down payment (%)</label><input id="m-down" type="number" inputmode="decimal" min="0" max="100" step="0.5" value="{{ mortgage.down_payment_pct }}"></div>
+     <div class="field"><label for="m-rate">Interest rate (%)</label><input id="m-rate" type="number" inputmode="decimal" min="0" max="30" step="0.125" value="{{ mortgage.rate_pct }}"></div>
+    </div>
+    <div class="row2">
+     <div class="field"><label for="m-years">Loan term (years)</label><input id="m-years" type="number" inputmode="numeric" min="1" max="50" step="1" value="{{ mortgage.term_years }}"></div>
+     <div class="field"><label for="m-tax">Property tax (% of price per year)</label><input id="m-tax" type="number" inputmode="decimal" min="0" max="10" step="0.05" value="{{ mortgage.tax_rate_pct }}"></div>
+    </div>
+    <div class="field"><label for="m-ins">Home insurance ($ per year)</label><input id="m-ins" type="number" inputmode="decimal" min="0" step="50" value="{{ mortgage.insurance_per_year }}"></div>
+    <div class="est" role="status" aria-live="polite">
+     <p class="fine" style="margin:0">Estimated total</p>
+     <p class="big" id="m-total">{{ initial_total }}</p>
+     <ul>
+      <li><span>Loan amount</span><span id="m-loan">{{ est.loan }}</span></li>
+      <li><span>Principal and interest</span><span id="m-pi">{{ est.pi }}</span></li>
+      <li><span>Property tax</span><span id="m-taxo">{{ est.tax }}</span></li>
+      <li><span>Insurance</span><span id="m-inso">{{ est.ins }}</span></li>
+      <li><span>HOA</span><span id="m-hoao">{{ est.hoa }}</span></li>
+     </ul>
+    </div>
+    <p class="fine">This is an estimate only, not a loan offer or quote. It uses the figures above and does not include mortgage insurance, closing costs or changes in taxes. Your lender's numbers will differ. Rates and tax figures here are examples set by the agent.</p>
+   </form>
+  </section>
+
+  <section class="panel share-sec" aria-labelledby="h-share">
+   <h2 id="h-share">Share this listing</h2>
+   <div class="share">
+    <button type="button" class="btn small ghost" id="share-copy">Copy link</button>
+    <button type="button" class="btn small" id="share-native" hidden>Share</button>
+    <a class="btn small ghost" id="share-email" href="mailto:?subject={{ title | urlencode }}">Email</a>
+    <a class="btn small ghost" id="share-sms" href="sms:">Text</a>
+    <a class="btn small ghost" id="share-fb" href="https://www.facebook.com/" rel="noopener" target="_blank">Facebook</a>
+    <a class="btn small ghost" id="share-x" href="https://twitter.com/" rel="noopener" target="_blank">X</a>
+    <button type="button" class="btn small ghost js-only" id="print-btn">Print</button>
+    <a class="btn small ghost" href="flyer.html">Print flyer</a>
+   </div>
+  </section>
+ </aside>
+</div>
+</main>
+<footer>
+ <div class="wrap">
+  <div><strong>{{ agent.brokerage or agent.name }}</strong>{% if agent.license %} | {{ agent.license }}{% endif %}</div>
+  <div>Equal Housing Opportunity. Information is believed accurate but not guaranteed; verify anything important.</div>
+  <div class="credit">Page made with <a href="https://github.com/chasebuilds/listing-kit">listing-kit</a> by Chase Builds.</div>
+ </div>
+</footer>
+
+<dialog class="lb" id="lightbox" aria-label="Photo viewer">
+ <div class="lb-inner">
+  <img id="lb-img" alt="">
+  <p id="lb-cap"></p>
+  <button type="button" class="x" id="lb-close" aria-label="Close photo viewer">&times;</button>
+  <button type="button" class="p" id="lb-prev" aria-label="Previous photo">&#8249;</button>
+  <button type="button" class="n" id="lb-next" aria-label="Next photo">&#8250;</button>
+ </div>
+</dialog>
+
+<script type="application/json" id="listing-data">{{ page_data | safe }}</script>
+<script src="{{ assets }}mortgage.js" defer></script>
+<script src="{{ assets }}listing.js" defer></script>
+</body>
+</html>

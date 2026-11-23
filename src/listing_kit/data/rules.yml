@@ -1,0 +1,356 @@
+# listing-kit fair-housing wording rules.
+#
+# This is a writing aid, not legal advice. A flag means "look at this wording", not "this is illegal".
+#
+# Fields
+#   id        short unique name
+#   category  race_color | religion | sex | disability | familial_status | national_origin | steering | local_law
+#   severity  avoid  - states or clearly signals a preference or limit; rewrite it
+#             review - often signals a preference to an ordinary reader; check the context
+#             note   - style advice only (not counted as a flag in the benchmark)
+#   basis     statute   - plain preference/limitation language covered by 42 U.S.C. 3604(c)
+#             hud-1995-memo - wording the January 9, 1995 HUD memo gives as an example of a violation
+#             hud-part-109 - word listed as risky in HUD's old 24 CFR Part 109 advertising guidelines
+#             judgment  - this project's conservative reading, not a HUD list entry
+#   pattern   regular expression, matched case-insensitively. Only features that behave the same
+#             in Python and JavaScript are used (see tests/test_parity.py).
+#   unless    optional list of regexes. If one matches within 40 characters of the hit, the hit is dropped.
+#   reason    why it can read as a preference or limit
+#   suggest   what to write instead (describe the property, not the buyer)
+#
+# Policy decisions, stated once so the benchmark labels follow them:
+#   - "family room", "single-family", "multi-family", "family-size" describe the house: clean.
+#   - "master bedroom" and similar: clean, with a style note (HUD does not ban it; many MLSs prefer "primary").
+#   - Naming a school or park as a fact ("near Lincoln Elementary") is clean. Quality claims about
+#     schools ("great schools") are a review flag.
+#   - Naming a place of worship as a selling point ("walking distance to church") is a review flag.
+#   - Accessibility features ("step-free entry", "wheelchair accessible") are clean.
+#   - "no pets" is clean with a note to say assistance animals are welcome.
+version: 1
+rules:
+  # ---------- familial status ----------
+  - id: no-children
+    category: familial_status
+    severity: avoid
+    basis: hud-1995-memo
+    pattern: '\b(no|not for|not suitable for|not intended for|not good for)\s+(kids|children|child|minors|infants|babies|toddlers|teenagers|teens)\b'
+    reason: "Says children are not wanted. Familial status (children under 18 in the household) is a protected class."
+    suggest: "Remove it. Describe the home itself, for example the number of bedrooms and the layout."
+  - id: child-free
+    category: familial_status
+    severity: avoid
+    basis: hud-1995-memo
+    pattern: '\b(child|kid|children)[- ]?free\b'
+    reason: "Limits the home to households without children."
+    suggest: "Remove it. State only facts about the property."
+  - id: adults-only
+    category: familial_status
+    severity: avoid
+    basis: hud-1995-memo
+    pattern: '\b(adults?|grown[- ]?ups?)[- ](only|preferred|building|community|complex|living)\b|\badults?\s+(only|preferred)\b'
+    reason: "Limits the home to adults. Only housing that qualifies as housing for older persons may do this."
+    suggest: "Remove it, or state the exact legal age-restriction program if the community really has one."
+  - id: no-families
+    category: familial_status
+    severity: avoid
+    basis: statute
+    pattern: '\bno\s+(families|family|single (parents?|mothers?|moms?|fathers?|dads?)|unmarried|unwed|pregnant|expecting)\b'
+    reason: "Excludes households by family makeup."
+    suggest: "Remove it. Describe bedrooms, square footage and layout."
+  - id: age-restricted
+    category: familial_status
+    severity: review
+    basis: judgment
+    pattern: '\b(55|62)\s*(\+|plus|and (over|older|up))|\bactive adult\b|\bsenior (living|community|housing|complex|village)\b|\bretirement (community|living|village|home)\b'
+    reason: "Age-targeted housing is lawful only when it meets the older-persons exemption. Without that, it reads as excluding families with children."
+    suggest: "If the community is a qualified 55+ community, say so plainly in the official program name. Otherwise describe the property."
+  - id: perfect-for-people
+    category: familial_status
+    severity: review
+    basis: hud-1995-memo
+    pattern: '\b(perfect|ideal|great|best|suited|suitable|designed|made|right)\s+(for|to)\s+(an?\s+|the\s+)?((young|growing|large|small|big|single|married|retired|newly[- ]?wed|elderly|older|mature|working|busy|active|traditional)\s+)*(couples?|famil(y|ies)|singles?|bachelors?|retirees?|newlyweds?|empty[- ]nesters?|seniors?|elderly|men|women|man|woman|gentlem[ae]n|ladies|lady|kids|children|disabled|handicapped|wheelchair users?)\b(?![- ]?(room|rooms|size|sized|home|homes))'
+    reason: "Names the kind of person who should live here. HUD guidance is to describe the property, not the buyer."
+    suggest: "Say what the home offers: bedrooms, layout, yard, storage, distance to places. Let buyers decide if it fits them."
+  - id: people-adjective
+    category: familial_status
+    severity: review
+    basis: judgment
+    pattern: '\b(young|newly[- ]?wed|retired|elderly|single|married|mature|older|working)\s+(couples?|professionals?|buyers?|tenants?|renters?|residents?|adults?|people|persons?|individuals?|crowd|folks|men|women|man|woman)\b'
+    reason: "Describes the preferred occupant by age, marital or family status."
+    suggest: "Remove the occupant description and describe the property."
+  - id: family-targeting
+    category: familial_status
+    severity: review
+    basis: judgment
+    pattern: '\b(young|growing|large|big|small|busy|new)\s+famil(y|ies)\b(?![- ]?(room|rooms|size|sized|home|homes|kitchen|dining))'
+    reason: "Targets a household type instead of describing space."
+    suggest: "Write the bedroom and bath count, or the room sizes."
+  - id: family-friendly
+    category: familial_status
+    severity: review
+    basis: judgment
+    pattern: '\bfamily[- ](friendly|oriented|focused|centered|centred|neighbou?rhood|community|street|atmosphere|environment|town|subdivision|crowd)\b|\b(kid|kids|child|children)[- ](friendly|safe|oriented|welcome|centered)\b|\bfamilies (welcome|only|preferred|wanted)\b'
+    reason: "Signals a preference for households with children, which can discourage others."
+    suggest: "Name the facts instead: fenced yard, playground one block away, number of bedrooms."
+  - id: raise-a-family
+    category: familial_status
+    severity: review
+    basis: judgment
+    pattern: '\b(raise|raising|rear|rearing)\s+(a\s+|your\s+|the\s+)?(famil(y|ies)|kids|children|child)\b|\bstart(ing)?\s+(a|your)\s+family\b|\b(lots|plenty) of (kids|children|young families|playmates)\b|\bplaymates\b|\b(kids|children)\s+(will|would)\s+love\b'
+    reason: "Speaks to a household with children rather than describing the home."
+    suggest: "Describe the yard, the layout and the extra bedrooms."
+  # ---------- disability ----------
+  - id: no-disabled
+    category: disability
+    severity: avoid
+    basis: hud-1995-memo
+    pattern: '\b(no|not (for|suitable for|accessible to))\s+(the\s+)?(disabled|handicapped|handicap|wheelchairs?|wheelchair users?|mentally ill|crippled|blind|deaf)\b'
+    reason: "Excludes people with disabilities."
+    suggest: "Remove it. State accessibility facts, such as the number of steps at the entry."
+  - id: able-bodied
+    category: disability
+    severity: review
+    basis: judgment
+    pattern: '\b(able[- ]bodied|physically (fit|capable|able)|mentally (stable|sound|healthy)|healthy|sane)\s+(buyers?|tenants?|renters?|residents?|persons?|people|individuals?|only|applicants?|owners?|adults?)\b'
+    reason: "Limits the home to people of a given health or ability."
+    suggest: "Remove it. Describe the property features, for example stairs to the bedrooms."
+  - id: must-be-able
+    category: disability
+    severity: review
+    basis: judgment
+    pattern: '\bmust be able to\s+(climb|walk|manage|use stairs|care for|live independently|drive|see|hear)\b'
+    reason: "Sets an ability requirement for the occupant."
+    suggest: "State the fact, for example 'two flights of stairs to the third floor'."
+  - id: no-assistance-animals
+    category: disability
+    severity: avoid
+    basis: statute
+    pattern: '\bno\s+(service|assistance|emotional[- ]support|companion|support)\s+(animals?|dogs?|pets?)\b'
+    reason: "Assistance animals are not pets under the Fair Housing Act."
+    suggest: "Say 'assistance animals welcome' if you mention pets."
+  - id: no-pets
+    category: disability
+    severity: note
+    basis: judgment
+    pattern: '\bno\s+pets\b'
+    reason: "A pet rule is allowed, but it must not apply to assistance animals."
+    suggest: "Add 'assistance animals welcome'."
+  - id: handicap-term
+    category: disability
+    severity: note
+    basis: judgment
+    pattern: '\bhandicap(ped)?[- ](accessible|bathroom|parking|ramp|ready|friendly)\b'
+    reason: "Accessibility features are fine to mention. The word 'handicapped' is dated."
+    suggest: "Use 'accessible', for example 'accessible bathroom' or 'step-free entry'."
+  # ---------- religion ----------
+  - id: religion-occupant
+    category: religion
+    severity: avoid
+    basis: hud-1995-memo
+    pattern: '\b(christian|catholic|jewish|muslim|protestant|mormon|lds|hindu|buddhist|sikh|evangelical|islamic|atheist|jehovah)s?\s+(home|homes|family|families|neighbou?rhood|community|buyers?|tenants?|couple|only|preferred|owners?|renters?|area|neighbou?rs?|values|environment|household)\b'
+    reason: "Names a religion as a preferred or typical occupant."
+    suggest: "Remove it. Say nothing about religion."
+  - id: no-religion
+    category: religion
+    severity: avoid
+    basis: hud-1995-memo
+    pattern: '\bno\s+(christians|catholics|jews|muslims|hindus|atheists|mormons|religious people)\b'
+    reason: "Excludes people by religion."
+    suggest: "Remove it."
+  - id: worship-proximity
+    category: religion
+    severity: review
+    basis: judgment
+    pattern: '\b(walking distance|walk(ing)?|close|near|nearby|minutes?|steps?|blocks?|next|adjacent|across|around the corner|short (drive|walk)|convenient|proximity|within)\b[^.!?;]{0,30}\b(church(es)?|synagogues?|mosques?|temples?|chapels?|parish(es)?|cathedrals?|(houses?|places?) of worship|kingdom halls?|congregations?)\b'
+    unless:
+      - '\b(church|temple|chapel)\s+(street|st|road|rd|avenue|ave|lane|ln|hill|drive|dr|way|university|ridge|square|park)\b'
+    reason: "Pitches a place of worship as a selling point, which can read as a preferred religion. HUD's 1995 memo treats plainly describing a facility as lawful, so this is a judgment flag, not a violation call."
+    suggest: "Give the distance to a neutral landmark or cross streets instead."
+  - id: god-fearing
+    category: religion
+    severity: avoid
+    basis: judgment
+    pattern: '\b(god[- ]fearing|church[- ]?going|churchgoers?)\b'
+    reason: "Describes the neighbors or buyers by religious practice."
+    suggest: "Remove it."
+  # ---------- race, color, national origin ----------
+  - id: race-occupant
+    category: race_color
+    severity: avoid
+    basis: hud-1995-memo
+    pattern: '\b(white|whites|black|blacks|asian|asians|hispanic|hispanics|latino|latinos|latina|caucasian|african[- ]american|oriental|colored|negro|chinese|japanese|korean|mexican|irish|italian|german|polish|russian|arab|indian|vietnamese|filipino|native american)\s+(only|preferred|wanted|required|tenants?|buyers?|renters?|families|neighbou?rs?|neighbou?rhood|community|enclave|section)\b'
+    reason: "Names a race, color or national origin as preferred or typical."
+    suggest: "Remove it. Say nothing about who lives nearby."
+  - id: no-group
+    category: national_origin
+    severity: avoid
+    basis: hud-1995-memo
+    pattern: '\bno\s+(blacks|whites|asians|hispanics|latinos|mexicans|irish|chinese|foreigners|immigrants|aliens|illegals|illegal aliens|undocumented|refugees|minorities|negroes|coloreds|arabs|indians)\b'
+    reason: "Excludes people by race or national origin."
+    suggest: "Remove it."
+  - id: language-citizenship
+    category: national_origin
+    severity: review
+    basis: judgment
+    pattern: '\b(english|american)[- ](speaking|only|speakers?)\b|\bmust (speak|be fluent in|know) english\b|\b(u\.?s\.?|american)\s+citizens?\b|\bnative[- ]born\b'
+    reason: "Language or citizenship requirements can screen out people by national origin."
+    suggest: "Remove it. Application criteria belong in the screening policy, applied to everyone equally."
+  - id: ethnic-term
+    category: race_color
+    severity: review
+    basis: judgment
+    pattern: '\b(ethnic|ghetto|barrio)\b'
+    reason: "Describes the neighborhood by the people in it."
+    suggest: "Describe the place: parks, shops, transit."
+  - id: demographic-area
+    category: steering
+    severity: review
+    basis: hud-part-109
+    pattern: '\b(integrated|diverse|mixed|multi[- ]?cultural|multi[- ]?ethnic|changing|transitional|declining)\s+(neighbou?rhood|community|area|block|street|part of town|population|crowd)\b'
+    reason: "Describes who lives in the area. 'Integrated' appears on HUD's older list of risky advertising words."
+    suggest: "Describe the place, not the residents."
+  - id: bad-area
+    category: steering
+    severity: review
+    basis: judgment
+    pattern: '\b(bad|rough|sketchy|undesirable|high[- ]crime|crime[- ]ridden|dangerous|unsafe|seedy)\s+(neighbou?rhood|area|part of town|section|block|street)\b'
+    reason: "Judgments about an area can steer buyers toward or away from it."
+    suggest: "Leave it out, or link to official public data."
+  - id: subjective-area
+    category: steering
+    severity: note
+    basis: judgment
+    pattern: '\b(safe|crime[- ]free|low[- ]crime|good|desirable|nice|great|best)\s+(neighbou?rhood|area|part of town)\b'
+    reason: "Subjective area claims mean different things to different readers."
+    suggest: "Use facts: tree-lined street, two blocks to the park, 10 minutes to downtown."
+  - id: exclusive-area
+    category: steering
+    severity: review
+    basis: hud-part-109
+    pattern: '\bexclusive\s+(neighbou?rhood|community|area|address|enclave|section|subdivision|location|setting|residents|street|part of town|zip)\b'
+    reason: "'Exclusive' is on HUD's older list of words that can signal who is welcome."
+    suggest: "Use a fact: 'gated entry', 'large lots', 'quiet cul-de-sac'."
+  - id: restricted-area
+    category: steering
+    severity: review
+    basis: hud-part-109
+    pattern: '\brestricted\s+(community|neighbou?rhood|area|clientele|subdivision)\b'
+    reason: "'Restricted' is on HUD's older list of risky words."
+    suggest: "If it is a deed-restricted or HOA community, say 'HOA community' and give the fee."
+  - id: traditional-area
+    category: steering
+    severity: review
+    basis: hud-part-109
+    pattern: '\btraditional\s+(neighbou?rhood|community|family|families|values|residents|couples?)\b'
+    reason: "'Traditional' is on HUD's older list and can signal a preferred household type."
+    suggest: "Describe the architecture or street instead, for example 'craftsman-era street'."
+  - id: right-kind-of-people
+    category: steering
+    severity: avoid
+    basis: judgment
+    pattern: '\b(right|better|our|certain)\s+(kind|type|sort|class)\s+of\s+(people|folks|neighbou?rs|residents|tenants|buyers)\b|\bpeople like us\b'
+    reason: "Openly describes who is wanted."
+    suggest: "Remove it."
+  - id: quality-people
+    category: steering
+    severity: review
+    basis: judgment
+    pattern: '\b(nice|good|respectable|decent|desirable|upstanding|wholesome|clean[- ]cut|quality|well[- ]to[- ]do|affluent|wealthy|upscale|high[- ]end|prestigious)\s+(neighbou?rs|people|folks|tenants|residents|crowd|clientele|families|demographic)\b'
+    reason: "Describes the people nearby instead of the property."
+    suggest: "Describe the street, the yard or the lot."
+  - id: class-people
+    category: steering
+    severity: review
+    basis: judgment
+    pattern: '\b(blue[- ]collar|working[- ]class|middle[- ]class|upper[- ]class|low[- ]income)\s+(neighbou?rhood|area|community|crowd|residents|neighbou?rs|section|part of town|families)\b'
+    reason: "Sorts the area by the kind of residents."
+    suggest: "Leave it out."
+  - id: upscale-area
+    category: steering
+    severity: note
+    basis: judgment
+    pattern: '\b(upscale|prestigious|elite|high[- ]end|affluent|wealthy|well[- ]to[- ]do|posh)\s+(neighbou?rhood|area|community|enclave|section|part of town|setting)\b'
+    reason: "Status claims about an area are vague and can read as a signal about who lives there."
+    suggest: "Use facts: lot size, finishes, the street."
+  - id: school-quality
+    category: steering
+    severity: review
+    basis: judgment
+    pattern: '\b(great|good|top|best|excellent|highly[- ]rated|top[- ]rated|award[- ]winning|quality|outstanding|superior|strong|sought[- ]after|desirable|ideal|wonderful)\s+(public\s+)?(schools?|school district|school system|school zone|school boundaries)\b'
+    reason: "School-quality claims are subjective, can steer by family status or race, and go stale."
+    suggest: "Name the assigned school as a fact and tell buyers to check the district for current boundaries."
+  # ---------- sex ----------
+  - id: sex-occupant
+    category: sex
+    severity: avoid
+    basis: hud-1995-memo
+    pattern: '\b(male|female|men|women|man|woman|girls?|guys?|ladies|lady|gentlemen|gentleman|boys?)\s+(only|preferred|roommate|tenant|tenants|wanted|needed|buyers?)\b'
+    reason: "Limits the home by sex. A shared-living roommate ad can fit an exemption, but the person placing the ad must meet its conditions."
+    suggest: "Remove it, or say 'roommate wanted' and describe the shared home."
+  - id: no-lgbt
+    category: sex
+    severity: avoid
+    basis: judgment
+    pattern: '\bno\s+(gays?|lesbians?|lgbtq?\+?|homosexuals?|transgender|transsexual)\b|\b(straight|heterosexual)\s+(only|preferred)\b|\b(married|straight|heterosexual)\s+couples?\s+(only|preferred)\b'
+    reason: "Excludes by sex, gender identity or sexual orientation (HUD applies the Act to these)."
+    suggest: "Remove it."
+  - id: bachelor-pad
+    category: sex
+    severity: review
+    basis: judgment
+    pattern: '\b(bachelor|bachelorette)\x27?s?\s+(pad|crib|special|quarters|friendly|dream)\b'
+    reason: "Aims the home at one sex or marital status."
+    suggest: "Describe the features: open plan, rooftop deck, walk-in shower."
+  - id: man-cave
+    category: sex
+    severity: review
+    basis: judgment
+    pattern: '\b(man|men|she|woman|ladies|mom|dad)[- ]?(cave|shed)\b'
+    reason: "Assigns a room to one sex."
+    suggest: "Use 'workshop', 'hobby room', 'media room' or 'bonus room'."
+  - id: spouse-targeting
+    category: sex
+    severity: review
+    basis: judgment
+    pattern: '\b(wife|wives|husband|housewife|housewives|homemaker|hubby)\b|\bmoms?\b|\bmother\b(?![- ]in[- ]law)|\bman of the house\b|\bwoman\x27?s touch\b'
+    unless:
+      - '\bmom[- ]and[- ]pop\b'
+      - '\bmother nature\b'
+    reason: "Speaks to a household role or sex instead of describing the property."
+    suggest: "Describe the kitchen or the room itself: gas range, island seating, pantry."
+  - id: his-and-hers
+    category: sex
+    severity: note
+    basis: judgment
+    pattern: '\bhis[- ]and[- ]hers?\b|\bhis/hers\b|\bhers?[- ]and[- ]his\b'
+    reason: "Assigns features to sexes. Usually harmless, but easy to avoid."
+    suggest: "Use 'dual closets' or 'two vanities'."
+  - id: master-bedroom
+    category: sex
+    severity: note
+    basis: judgment
+    pattern: '\bmaster\s+(bed(room)?s?|bath(room)?s?|suite|closet|retreat|wing|level|en[- ]?suite)\b'
+    reason: "HUD does not prohibit 'master bedroom', but many MLSs and brokerages have moved to 'primary'."
+    suggest: "Use 'primary bedroom', 'primary suite' or 'owner suite'."
+  - id: in-law-suite
+    category: sex
+    severity: note
+    basis: judgment
+    pattern: '\bmother[- ]in[- ]law\s+(suite|apartment|apt|quarters|unit|cottage|room|addition)\b'
+    reason: "Gendered term for a common feature."
+    suggest: "Use 'in-law suite', 'guest suite' or 'accessory dwelling unit'."
+  - id: maids-quarters
+    category: sex
+    severity: note
+    basis: judgment
+    pattern: '\b(maid|servants?|nanny)\x27?s?\s+(quarters|room|suite|wing|entrance|stairs)\b'
+    reason: "Dated wording with class and sex connotations."
+    suggest: "Use 'guest room', 'staff suite' or 'bonus room'."
+  # ---------- local law ----------
+  - id: source-of-income
+    category: local_law
+    severity: review
+    basis: judgment
+    pattern: '\bno\s+(section\s*8|vouchers?|hud|housing (choice )?vouchers?|housing assistance|rental assistance|welfare|public assistance|subsidies|subsidized)\b|\bnot accepting section\s*8\b'
+    reason: "Not a federal class, but many states and cities ban refusing lawful income such as vouchers."
+    suggest: "Remove it unless your local rules allow it, and state screening standards that apply to everyone."

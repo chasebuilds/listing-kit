@@ -1,0 +1,9 @@
+:root{
+ --bg:linear-gradient(180deg,#eaf6f7 0%,#fdfbf6 100%);
+ --text:#12323a;--muted:#46636a;
+ --panel:#ffffff;--panel-border:#cfe3e6;--blur:none;
+ --shadow:0 10px 30px -14px rgba(11,106,120,.35);--radius:14px;--btn-radius:12px;
+ --font-head:"Trebuchet MS","Segoe UI",system-ui,sans-serif;--font-body:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;--head-weight:700;
+ --fact-bg:#f1f9fa;--field-bg:#fff;--field-border:#5f858c;
+ --notice-bg:#0b6a78;--notice-text:#fff;
+}

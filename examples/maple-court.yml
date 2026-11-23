@@ -1,0 +1,81 @@
+# Sample listing 1. Everything here is invented: the home, address, agent and photos.
+slug: maple-court
+site_url: https://chasebuilds.github.io/listing-kit/maple-court
+theme: glass
+status: For sale
+notice: "Sample listing for a software demo. The home, address, agent and photos are invented, and the map shows a general area only."
+title: Maple Court Craftsman
+address:
+  street: 214 Maple Court
+  city: Ashbrook
+  region: NC
+  postal_code: "28000"
+price: 489000
+beds: 3
+baths: 2
+sqft: 1840
+lot_sqft: 7200
+year_built: 1926
+description: |
+  A 1926 craftsman bungalow with a deep covered porch, original wood trim and a bright open living and dining room. The updated kitchen has a gas range, quartz counters, an island with seating for three and a walk-in pantry.
+
+  The primary bedroom sits at the back of the house with a walk-in closet and a tiled shower. Two more bedrooms share a hall bath with a soaking tub. A finished basement room works as an office, hobby room or extra storage.
+
+  The fenced back yard has a deck, string lights and a mature maple. The home is on a quiet cul-de-sac, a short walk from the Maple Street park and a 10 minute drive to downtown.
+features:
+  - Covered front porch
+  - Original hardwood floors, refinished 2024
+  - Gas range and quartz counters
+  - Walk-in pantry
+  - Primary suite with walk-in closet
+  - Finished basement room
+  - Fenced back yard with deck
+  - New high-efficiency furnace (2023)
+  - Two-car detached garage
+  - Fiber internet available
+photos:
+  - file: photos/maple-1-front.jpg
+    alt: Illustration of a green-gray craftsman bungalow with a covered porch and a front walk
+    caption: Front of the house
+  - file: photos/maple-2-living.jpg
+    alt: Illustration of a living room with a terracotta sofa, a floor lamp and a large sunny window
+    caption: Living room
+  - file: photos/maple-3-kitchen.jpg
+    alt: Illustration of a kitchen with green cabinets, a long island with three stools and pendant lights
+    caption: Kitchen
+  - file: photos/maple-4-bedroom.jpg
+    alt: Illustration of a bedroom with a paneled headboard, two nightstands with lamps and a window
+    caption: Primary bedroom
+  - file: photos/maple-5-bath.jpg
+    alt: Illustration of a bathroom with white tile, a soaking tub and a wood vanity
+    caption: Hall bath
+  - file: photos/maple-6-yard.jpg
+    alt: Illustration of a fenced back yard with a wood deck, a table with an umbrella and string lights
+    caption: Back yard and deck
+timezone: America/New_York
+open_houses:
+  - start: "2026-12-05 13:00"
+    end: "2026-12-05 15:00"
+    note: Park on Maple Court. Ring the bell on the porch.
+  - start: "2026-12-06 14:00"
+    end: "2026-12-06 16:00"
+agent:
+  name: Riley Example
+  brokerage: Sample Realty Group
+  phone: "(555) 010-0142"
+  email: riley@example.com
+  tagline: An invented agent for the listing-kit demo.
+  brand_color: "#b4552d"
+location:
+  lat: 35.5951
+  lng: -82.5515
+  zoom: 14
+  approximate: true
+lead:
+  mode: mailto
+mortgage:
+  down_payment_pct: 20
+  rate_pct: 6.5
+  term_years: 30
+  tax_rate_pct: 0.9
+  insurance_per_year: 1500

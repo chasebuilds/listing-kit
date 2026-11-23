@@ -1,0 +1,12 @@
+:root{
+ --bg:#f7f2e8;
+ --text:#1d2433;--muted:#51586b;
+ --panel:#fffdf8;--panel-border:#d9cfba;--blur:none;
+ --shadow:0 1px 0 rgba(0,0,0,.04);--radius:4px;--btn-radius:2px;
+ --font-head:Georgia,"Times New Roman",serif;--font-body:Georgia,"Times New Roman",serif;--head-weight:700;
+ --fact-bg:#f7f2e8;--field-bg:#fff;--field-border:#6f6957;
+ --notice-bg:#1f3a6b;--notice-text:#fff;
+}
+.hero::after{background:linear-gradient(180deg,rgba(10,20,40,0) 30%,rgba(10,20,40,.85))}
+h2{border-bottom:2px solid var(--accent);padding-bottom:.3em;font-size:1.15rem;text-transform:uppercase;letter-spacing:.06em}
+.btn{letter-spacing:.04em}

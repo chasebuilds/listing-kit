@@ -1,0 +1,129 @@
+# Development set. Invented sentences, written by the same person who wrote the rules, and used while tuning them.
+# Format: label|group|difficulty|text   (label F = should be flagged, C = should not; difficulty std or hard)
+F|familial_status|std|Perfect for young couples starting out.
+F|familial_status|std|No kids allowed in this building.
+F|familial_status|std|Adults only community with quiet hours.
+F|familial_status|std|Ideal for a growing family who wants a big yard.
+F|familial_status|std|This is a great family-friendly neighborhood with lots of kids on the street.
+F|familial_status|std|A wonderful place to raise a family.
+F|familial_status|std|Not suitable for children because of the open balcony.
+F|familial_status|std|Great for retirees looking to downsize.
+F|familial_status|std|55+ community with a clubhouse and pool.
+F|familial_status|std|Young professionals will love the loft and the nightlife nearby.
+F|familial_status|std|Child-free complex, please inquire.
+F|familial_status|std|Kids will love the finished basement and the swing set.
+F|familial_status|std|Bachelor pad with an open plan and a rooftop deck.
+F|familial_status|std|Best suited for empty nesters or a single person.
+F|familial_status|hard|A cozy retreat for two, with no need for extra bedrooms.
+F|familial_status|hard|Quiet building where mature tenants are valued.
+F|disability|std|Sorry, not suitable for wheelchair users.
+F|disability|std|Looking for healthy tenants only.
+F|disability|std|Must be able to climb three flights of stairs.
+F|disability|std|No service animals allowed.
+F|disability|std|Perfect for the disabled with ramps throughout.
+F|disability|std|Able-bodied buyers will enjoy the hillside lot.
+F|disability|hard|Ideal for active people who enjoy hills and stairs.
+F|religion|std|Walking distance to church and Bible study groups.
+F|religion|std|Close to the synagogue, a great fit for a Jewish family.
+F|religion|std|A Christian home in a God-fearing neighborhood.
+F|religion|std|Steps from the mosque and halal markets.
+F|religion|std|Minutes from the temple and the Hindu community center.
+F|religion|std|Catholic buyers preferred by the seller.
+F|religion|std|No Muslims please.
+F|religion|hard|Ideal for those who value Sunday worship nearby.
+F|race_color|std|White neighborhood with well-kept lawns.
+F|race_color|std|Caucasian tenants only.
+F|race_color|std|Located in a changing neighborhood, priced to sell.
+F|race_color|std|Ethnic area with lots of local flavor.
+F|race_color|std|Black tenants preferred.
+F|race_color|hard|Not in a bad part of town anymore, according to the seller.
+F|national_origin|std|English speaking tenants only.
+F|national_origin|std|No foreigners.
+F|national_origin|std|U.S. citizens only need apply.
+F|national_origin|std|Native born applicants preferred.
+F|national_origin|std|Must speak English to rent.
+F|national_origin|std|Close to the Mexican community and shops.
+F|national_origin|hard|A quiet street with neighbors from the old country, just like you.
+F|sex|std|Female roommate wanted for a two bedroom apartment.
+F|sex|std|Perfect for a single man who likes to entertain.
+F|sex|std|Your wife will love the kitchen.
+F|sex|std|A man cave in the basement and a she shed in the yard.
+F|sex|std|Straight couples only.
+F|sex|std|No gays or lesbians.
+F|sex|std|The homemaker will appreciate the pantry and laundry chute.
+F|sex|hard|Gentlemen of means will appreciate the study.
+F|steering|std|Located in an exclusive neighborhood.
+F|steering|std|A restricted community with a private gate.
+F|steering|std|Great schools make this a family favorite.
+F|steering|std|Good neighbors and nice people all around.
+F|steering|std|A traditional neighborhood with traditional values.
+F|steering|std|It is the right kind of people on this street.
+F|steering|std|Affluent neighbors, quiet cul-de-sac.
+F|steering|std|Top rated schools are nearby.
+F|steering|std|A working class neighborhood with great prices.
+F|steering|std|An integrated community with a mix of homes.
+F|steering|std|Avoid the high-crime area to the west, this one is safe.
+F|local_law|std|No Section 8 accepted.
+F|local_law|std|No housing vouchers please.
+F|local_law|std|Not accepting Section 8 or rental assistance.
+C|plain|std|Three bedroom, two bath ranch with a two car garage.
+C|plain|std|The kitchen has granite counters and stainless steel appliances.
+C|plain|std|Hardwood floors run through the main level.
+C|plain|std|A fenced yard with a patio and room for a garden.
+C|plain|std|New roof in 2024 and a high efficiency furnace.
+C|plain|std|The basement is finished and has a full bath.
+C|plain|std|Open house Saturday from 1 to 3.
+C|plain|std|Close to the interstate and a 15 minute drive to downtown.
+C|plain|std|Quiet street with mature trees and sidewalks.
+C|plain|std|The home sits on a half acre lot with a view of the ridge.
+C|plain|std|Washer and dryer are included.
+C|plain|std|HOA dues are $85 a month and cover snow removal.
+C|plain|std|Updated bathrooms with tile floors and double vanities.
+C|plain|std|Large windows bring in lots of natural light.
+C|plain|std|The garage has a workbench and extra storage.
+C|plain|std|Pet friendly with a fenced dog run.
+C|plain|std|Granite island seats four and opens to the dining area.
+C|plain|std|Walking distance to the park, the library and a coffee shop.
+C|plain|std|Zoned for Lincoln Elementary and Roosevelt Middle School.
+C|plain|std|The building has an elevator and secure entry.
+C|plain|std|Water, trash and sewer are included in the rent.
+C|plain|std|Built in 1952 and fully renovated in 2023.
+C|plain|std|Solar panels lower the electric bill.
+C|plain|std|Two blocks from the bus line and the farmers market.
+C|plain|std|Vaulted ceilings in the living room.
+C|tricky|std|The family room has a gas fireplace and built-in shelves.
+C|tricky|std|A classic single-family home on a corner lot.
+C|tricky|std|The master bedroom has a walk-in closet and a tiled shower.
+C|tricky|std|The master bath has a double vanity.
+C|tricky|std|Wheelchair accessible entrance and a roll-in shower.
+C|tricky|std|Step-free entry and wide doorways throughout the main floor.
+C|tricky|std|One level living with no stairs.
+C|tricky|std|No pets, no smoking.
+C|tricky|std|Mom-and-pop shops and restaurants line the main street.
+C|tricky|std|On Church Street, two blocks from the square.
+C|tricky|std|Close to Temple University and the train station.
+C|tricky|std|The exclusive listing agent is available for showings.
+C|tricky|std|Mature oak trees shade the back yard.
+C|tricky|std|Italian marble in the entry and a Mexican tile backsplash.
+C|tricky|std|Black granite counters and white oak floors.
+C|tricky|std|A multi-family building with four units.
+C|tricky|std|Near Indian Hills Park and the golf course.
+C|tricky|std|The family-owned builder has constructed homes here since 1978.
+C|tricky|std|Large family-size kitchen with seating for six.
+C|tricky|std|An in-law suite with a private entrance.
+C|tricky|std|A walk-in closet in each bedroom.
+C|tricky|std|No HOA fees and no through traffic.
+C|tricky|std|Seller will consider all reasonable offers.
+C|tricky|std|Bright bedrooms with ceiling fans.
+C|tricky|std|The retired firehouse next door was converted into a brewery.
+C|tricky|std|Five minutes from Mother Nature trail.
+C|tricky|std|Easy access to the senior center and the community pool.
+C|tricky|std|Nearby school information is available from the district office.
+C|tricky|std|Great for entertaining with an open kitchen and a big deck.
+C|tricky|std|Great for a home office or a guest room.
+C|tricky|std|Ideal for hosting dinners, with seating for twelve.
+C|tricky|std|A quiet neighborhood with sidewalks and streetlights.
+C|tricky|hard|Listed by a husband-and-wife team with 20 years of local experience.
+C|tricky|hard|The sellers are a retired couple who maintained the house carefully.
+C|tricky|hard|A short walk to the temple of the old mill, now a museum.
+C|tricky|hard|Kitchen was remodeled by the owner's mother, a licensed contractor.

@@ -23,12 +23,12 @@ textarea{width:100%;min-height:170px;padding:12px;border:1px solid #8f7e6f;borde
 .btn{display:inline-flex;align-items:center;min-height:44px;padding:.5rem 1.2rem;border-radius:999px;border:2px solid var(--accent);background:var(--accent);color:var(--accent-ink);font:inherit;font-weight:600;cursor:pointer;text-decoration:none}
 .btn.ghost{background:transparent;color:var(--text)}
 .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
-.preview{white-space:pre-wrap;padding:12px;border:1px dashed #8f7e6f;border-radius:14px;background:rgba(255,255,255,.55);min-height:3rem}
+.preview{min-height:6rem;white-space:pre-wrap;padding:12px;border:1px dashed #8f7e6f;border-radius:14px;background:rgba(255,255,255,.55)}
 mark{padding:0 2px;border-radius:4px;color:inherit}
 mark.avoid{background:#f6b8ae;box-shadow:0 2px 0 #a52a1a}
 mark.review{background:#f9dc8c;box-shadow:0 2px 0 #8a5a00}
 mark.note{background:#cfe3f1;box-shadow:0 2px 0 #1f5f8a}
-.summary{font-weight:700;margin:0 0 10px}
+.summary{font-weight:700;margin:0 0 10px;min-height:1.7em}
 .findings{list-style:none;padding:0;margin:0;display:grid;gap:10px}
 .findings li{padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.65);border:1px solid rgba(0,0,0,.08)}
 .sev{display:inline-block;font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:.1rem .6rem;border-radius:999px;margin-right:8px}

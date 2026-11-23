@@ -155,7 +155,7 @@ Pages are measured with Lighthouse, see [docs/LIGHTHOUSE.md](docs/LIGHTHOUSE.md)
 
 ### The contact form
 
-With `mode: mailto` the form works on any static host: submitting opens the visitor's email app with a filled-in message to the agent. Nothing is stored. With `mode: endpoint` the form posts to a form service such as Formspree or Getform; set `endpoint` to its URL. If the post fails, the page shows a message and an email link. A hidden honeypot field catches simple bots.
+With `mode: mailto` the form works on any static host: submitting opens the visitor's email app with a filled-in message to the agent. Nothing is stored. (It needs JavaScript; without it the page shows a plain email link.) With `mode: endpoint` the form posts to a form service such as Formspree or Getform; set `endpoint` to its URL. If the post fails, the page shows a message and an email link. A hidden honeypot field catches simple bots.
 
 ### The payment estimate
 

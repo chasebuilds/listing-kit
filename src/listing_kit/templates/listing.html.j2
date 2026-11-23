@@ -139,7 +139,8 @@
     </div>
    </div>
    {% if agent.tagline %}<p class="fine" style="margin-top:10px">{{ agent.tagline }}</p>{% endif %}
-   <form id="lead-form" action="{{ form_action }}" method="post"{% if lead.mode == 'mailto' %} enctype="text/plain"{% endif %} style="margin-top:12px">
+   {% if lead.mode == 'mailto' %}<noscript><p class="fine">This form needs JavaScript. Without it, email <a href="mailto:{{ agent.email }}">{{ agent.email }}</a> directly.</p></noscript>{% endif %}
+   <form id="lead-form" action="{{ form_action }}" method="post" style="margin-top:12px">
     <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" autocomplete="name" required></div>
     <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
     <div class="field"><label for="f-phone">Phone (optional)</label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>

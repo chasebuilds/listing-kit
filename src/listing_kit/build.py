@@ -310,7 +310,7 @@ def build_listing(
         "phone_digits": "+1" + re.sub(r"\D", "", agent.get("phone", ""))[-10:],
         "map": map_cfg,
         "lead": lead,
-        "form_action": f"mailto:{agent['email']}" if mode == "mailto" else lead["endpoint"],
+        "form_action": "#" if mode == "mailto" else lead["endpoint"],
         "mortgage": mort,
         "initial_total": f"{money(est['total'])} / month",
         "est": {

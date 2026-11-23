@@ -142,8 +142,8 @@ def test_mortgage_widget_inputs_and_estimate_label(site):
 
 def test_lead_form_works_without_a_backend(site):
     html = (site / "maple-court" / "index.html").read_text(encoding="utf-8")
-    assert 'action="mailto:riley@example.com"' in html
-    assert 'enctype="text/plain"' in html
+    assert "action=\"mailto:" not in html  # a mailto form action is flagged as insecure by Lighthouse
+    assert "<noscript>" in html and "mailto:riley@example.com" in html
 
 
 def test_endpoint_lead_form(tmp_path):

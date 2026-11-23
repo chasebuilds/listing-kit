@@ -8,7 +8,7 @@
 
 ![A listing page made from one YAML file](docs/preview.png)
 
-**Measured:** LH_LINE The wording checker scores 95.2% precision and 63.5% recall on 143 sentences written after its rules were frozen (96.8% and 96.8% on the 258 it was tuned on). Full tables and every miss: [BENCHMARK.md](BENCHMARK.md). The checker is a writing aid, not legal advice.
+**Measured:** Lighthouse on the live demo (median of 3 runs per page, mobile and desktop): 100 for performance, accessibility, best practices and SEO on the index, all three listings and the checker, with mobile LCP 0.8 to 1.3 seconds; single runs sometimes scored lower, see [docs/LIGHTHOUSE.md](docs/LIGHTHOUSE.md). The wording checker scores 95.2% precision and 63.5% recall on 143 sentences written after its rules were frozen (96.8% and 96.8% on the 258 it was tuned on). Full tables and every miss: [BENCHMARK.md](BENCHMARK.md). The checker is a writing aid, not legal advice.
 
 Every home, address, agent and photo in the demo is invented. The photos are illustrations drawn by a script in this repo.
 
@@ -161,7 +161,7 @@ Trust the held-out row. The 1.0.0 held-out set (72.3% recall) was folded into de
 
 ### Pages
 
-LH_SECTION
+Lighthouse on the live demo, median of 3 runs per cell: performance, accessibility, best practices and SEO are all 100 on the index, the three listings and the checker, mobile and desktop. Mobile LCP is 0.8 to 1.3 seconds. Individual runs sometimes scored lower (lowest 92 for performance and SEO, one earlier pass much lower), and two runs failed to paint and were dropped. The full table, the spread and the causes are in [docs/LIGHTHOUSE.md](docs/LIGHTHOUSE.md).
 
 ## The YAML file
 

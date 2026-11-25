@@ -225,3 +225,11 @@ See [LIMITATIONS.md](LIMITATIONS.md).
 ## License
 
 MIT, see [LICENSE](LICENSE). Built by Chase Builds.
+
+## More from Chase Builds
+
+- **[seller-net-sheet-cma](https://github.com/chasebuilds/seller-net-sheet-cma)**: Seller net sheet, buyer cash to close and a CMA presentation in one page. 20,000 of 20,000 prorations correct to the cent. ([live demo](https://chasebuilds.github.io/seller-net-sheet-cma/))
+- **[showing-route-planner](https://github.com/chasebuilds/showing-route-planner)**: Orders a day of showings around every listing window with the least driving. Works offline on a phone. ([live demo](https://chasebuilds.github.io/showing-route-planner/))
+- **[comparable-sales-grid](https://github.com/chasebuilds/comparable-sales-grid)**: Picks comps, adjusts each line with rates measured from your own sales, and gives a value range. Within 5% on 93.0% of test homes. ([live demo](https://chasebuilds.github.io/comparable-sales-grid/))
+
+[All projects, sorted by industry](https://github.com/chasebuilds) · [chasebuilds.github.io](https://chasebuilds.github.io)
